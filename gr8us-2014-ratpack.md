@@ -151,12 +151,22 @@ Doing a `get` will return an object of the type requested or throw a NotInRegist
 ~~~~
 ## Request / Response
 
-The request and response objects are also availbe on the context but they have their own convienience methods.
+The request and response objects are also available on the context but they have their own convenience methods.
 
 ```groovy
 context.getRequest()
 context.getResponse()
 ```
+~~
+## Request
+
+The HTTP request sent from the client to the server. It holds some of the expected items the handlers will need to process:
+
+ * Headers
+ * Body
+ * Query Parameters
+ * Cookies
+
 ~~~~
 ## Specs
 ~~~~
