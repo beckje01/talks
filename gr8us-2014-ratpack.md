@@ -272,11 +272,11 @@ In Groovy we can just pass in a closure that acts on the RequestSpec in the abov
 
 ~~
 ##Spec Example
-
+```
 requestSpec { RequestSpec request ->  
   request.body.type("text/plain").stream { it << "foo" }
 }
-
+```
 ~~
 ## Why Specs
 
