@@ -293,9 +293,42 @@ Important Examples
  * RegistrySpec
 
 ~~~~
-## blocking/async/execution
+## Blocking / Async
 
-//TODO
+The core of Ratpack is really about building a non-blocking HTTP app. So when ever you are working with blocking IO you want to wrap that in something that will be non-blocking for the handler.
+
+[Reading Homework](http://www.ratpack.io/manual/0.9.7/async.html#performing_async_operations)
+~~
+## Blocking DSL
+
+Inside of the handlers block we can do the following assuming the datastore is blocking. [Blocking DSL][2]
+
+```
+handlers {
+  get("deleteOlderThan/:days") { Datastore datastore ->
+    blocking {
+      datastore.deleteOlderThan(pathTokens.asInt("days"))
+    } then {
+      context.render("$it records deleted")
+    }
+  }
+}
+```
+[2]: http://www.ratpack.io/manual/0.9.7/api/ratpack/handling/Context.html#blocking(java.util.concurrent.Callable)
+~~
+## Ratpack Async
+
+In general Ratpack exposes a low level [Promise](http://www.ratpack.io/manual/0.9.7/api/ratpack/exec/Promise.html) that is the base way to interact with the Async / Non Blocking.
+
+A user can adapt external Async libraries into ratpack by using [context.promise][3]
+
+[3]: http://www.ratpack.io/manual/0.9.7/api/ratpack/handling/Context.html#promise(ratpack.func.Action)
+
+~~
+## Better Ratpack Asyc
+
+Check out the ratpack-rx module, a clean integration of RX Java. Makes it much easier to deal with async.
+
 ~~~~
 ##Example Subscription Service
 
@@ -303,17 +336,48 @@ A simple REST resource representing a subscription.
 
 ~~
 ## Lazybones
-//TODO
 
+Kick start a basic Ratpack app.
+
+```
+gvm use lazybones
+lazybones create ratpack rat-app
+cd rat-app
+gradle run
+```
 ~~
 ## Stub Out
-//TODO
+
+In Ratpack.groovy stub out all the handlers I will be using for the app.
+
+[Code](https://github.com/beckje01/ratpack-subscription-api/blob/Step-1/src/ratpack/Ratpack.groovy)
+
+Under the covers the handlers closure delegates to GroovyChain which is a Handler Chain with groovy sugar.
 
 ~~
 ## Gradle Run
+With the simple `gradle run` supports a few key items:
 
-//TODO
+ * Reloading
+ * Debug available via `gradle run --debug-jvm`
 
+~~
+## Adding Simple Token Auth
+
+Here you see the handler delegating to other handlers.
+```groovy
+handler {
+    //A very simple handler to check token auth on a header
+    if (request.headers['Authorization'] != "Token faketoken") {
+        response.status(401)
+        //We must send some response or the request will hang.
+        response.send()
+    } else {
+        //We can choose to do nothing but allow the next handler in the chain to deal with the request.
+        next()
+    }
+}
+```
 ~~~~
 ## Unit Testing
 
