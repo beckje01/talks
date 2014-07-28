@@ -127,7 +127,7 @@ context.next(just(Person.class, p))
 ~note
 Example of exposing an object for further handlers.
 ~~
-## Adding Multipul Values
+## Adding Multiple Values
 
 We can use the RegistrySpec to build a registry with many values:
 
