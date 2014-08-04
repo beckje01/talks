@@ -84,9 +84,10 @@ This part is hard there will be mistakes.
   * Hire a Consultant
 
 ~~
-## Primary Key Example
+## Primary Key
 
-//TODO
+ * Defined as `PRIMARY KEY (lastName,firstName)`
+ * Can query parts going left to right but no skipping.
 
 ~~
 ### Subscription Example  
@@ -133,8 +134,6 @@ CREATE TABLE customersubscription(
     PRIMARY KEY (cid)
 );
 ```
-~~
-
 ~~~~
 ## Anti Patterns
 
