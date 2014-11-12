@@ -14,7 +14,12 @@
 ## Code
 
 ```groovy
-class NonTransactionalIntegrationSpec extends IntegrationSpec {
+import org.codehaus.groovy.grails.orm.hibernate.cfg.DefaultGrailsDomainConfiguration
+import org.hibernate.SessionFactory
+import org.hibernate.cfg.Configuration
+import org.hibernate.tool.hbm2ddl.SchemaExport
+
+class NonTransactionalIntegrationSpec extends company.IntegrationSpec {
 
     @Shared
     private static Configuration _configuration
@@ -68,4 +73,4 @@ def cleanupSpec() {
 
 Burt's [An Alternative Approach for Grails Integration Tests](http://burtbeckwith.com/blog/?p=82)
 
-We've updated thing to work on Grails 2.2.x and 2.3.x
+We've updated that to work on Grails 2.2.x and 2.3.x with Spock.
