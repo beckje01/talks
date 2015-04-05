@@ -48,7 +48,7 @@ http://bit.ly/TODO
 </p>
 
 </section>
-<section data-markdown="greach-2015-sec-ratpack.md" data-separator="~~~~" data-vertical="~~" data-notes="~note"></section>
+<section data-markdown="greach-2015-sec-ratpack.md" data-separator="----" data-vertical="--" data-notes="-note"></section>
 <section>
 	<h1>Thank You</h1>
 </section>
@@ -97,8 +97,34 @@ http://bit.ly/TODO
 			  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 			  ga('create', 'UA-41150211-5', 'auto');
-			  ga('send', 'pageview');
+
 			}
+
+			Reveal.addEventListener( 'ready', function( event ) {
+					// event.currentSlide, event.indexh, event.indexv
+					if(event.indexh === 0 && event.indexv === 0){
+						// console.log("First Slide Sending page view");
+
+						if(document.location.hostname!="localhost"){
+							ga('send', 'pageview');
+						}
+					}
+			} );
+
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				var pagePath = window.location.pathname+"#/"+event.indexh;
+
+				if(event.indexv!==0){
+					pagePath += "/"+event.indexv
+				}
+
+				// console.log("Sending PageView of: "+pagePath)
+				if(document.location.hostname!="localhost"){
+					ga('set', 'page', pagePath);
+					ga('send', 'pageview');
+				}
+			} );
 		</script>
 
 		<!-- SmartThings Branding -->
