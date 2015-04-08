@@ -7,13 +7,24 @@
  * Data Modeling Overview
   * span out on write not read
   * focus on query first modeling
- * Thrift vs CQL
+  * Can you make everything an idempotent upsert?
+ <!-- * Thrift vs CQL Need this? -->
  * What is available for Grails
-  * Cassandra ORM
-  * Cassandra GORM
-  * Astyanax
-  * Java Native Driver
-//TODO more
+ * Cassandra ORM
+  * Extras provided counters, indicies, relations
+  * Expando map
+  * draw back dealing with bootstrapping
+ * Cassandra GORM
+  * participates in gorm
+  * all or nothing mapping
+  * will auto create the first time
+ * Astyanax
+ * Java Native Driver
+ * Other Tools
+  * Pillar
+  * CQL / CLI migration runner
+
+
 
 -note
 Abstract
