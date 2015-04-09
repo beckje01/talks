@@ -2,28 +2,14 @@
 
  * whoami
  * What is Cassandra
-  * When Cassandra
-  * When Not Cassandra
- * Data Modeling Overview
-  * span out on write not read
-  * focus on query first modeling
-  * Can you make everything an idempotent upsert?
- <!-- * Thrift vs CQL Need this? -->
- * What is available for Grails
- * Cassandra ORM
-  * Extras provided counters, indicies, relations
-  * Expando map
-  * draw back dealing with bootstrapping
- * Cassandra GORM
-  * participates in gorm
-  * all or nothing mapping
-  * will auto create the first time
- * Astyanax
- * Java Native Driver
- * Other Tools
-  * Pillar
-  * CQL / CLI migration runner
-
+ * Data Modeling
+ * What is Available for Grails
+  * Cassandra ORM
+  * Cassandra GORM
+  * Astyanax
+  * Java Native Driver
+ * Which to Use
+ * Basic Configuration
 
 
 -note
@@ -54,18 +40,19 @@ I've been doing Cassandra for the last 3 years, production around 2 - 2 and a ha
 --
 ## When Cassandra
 
- //TODO
-
+ * High write throughput needs
+ * Cross datacenter replication required
+ * Mature data access patterns
 --
 ## When Not Cassandra
 
  * When you depend on transactions
- //TODO more
+ * Not sure how you will access the data
+ * Lack the shared responsibility on the running of Cassandra
 
 -note
 
 You probably don't need transactions but its a different mindset check out Steve's talks about event sourcing.
-
 ----
 ## Data Modeling
 
@@ -74,3 +61,188 @@ It's hard you are going to make mistakes.
 -note
 
 No really you are going to do things wrong for a while, I still do.
+
+--
+## Data Modeling
+
+ * You need to focus on _Fan Out on Write_, not the more traditional _Fan Out on Read_.
+ * With Cassandra you really need to focus on the query not the thing being represented
+
+--
+### Hints
+
+   * Duplicate Data
+   * Good Compound Primary Key
+   * Careful around adding an index
+   * Hire a Consultant
+
+--
+## Primary Key
+
+  * Defined as `PRIMARY KEY (lastName,firstName)`
+  * Can query parts going left to right but no skipping.
+
+
+----
+## Data Modeling Example
+
+Store every login and login attempt to the system. We want to find all attempts per user for either successful or unsuccessful sorted by the date it happened.
+
+--
+## Via CQL
+
+```
+CREATE TABLE LoginAttempts (
+  userName text,
+  successful boolean,
+  ipAddress text,
+  userAgent text,
+  method text,
+  dateCreated timestamp,
+
+  PRIMARY KEY(userName, successful, dateCreated)
+);
+```
+-note
+Talk to the sorting by dateCreated or by getting all by username.
+
+----
+## Idempotent Upserts
+
+Model your interactions as all idempotent upserts if possible. This is kind of the best case for Cassandra.
+
+-note
+Talk about how read before write is bad.
+
+----
+## What is available for Grails
+
+  * *ORMs*
+    * [Cassandra ORM]()
+    * [Cassandra GORM]()
+  * *Direct Cassandra Access*
+    * [Astyanax Plugin]()
+    * [Java Native Driver]()
+-note
+ORMs with Cassandra while handy are something to be slightly weary of, since Cassandra dosen't have relations built in, there may be a bit of a mismatch between any ORM and Cassandra.
+----
+## Cassandra ORM
+
+The older of the two ORMs this was modeled after GORM but didn't fully participate in GORM. Based on top of Astyanax and Thrift. Provides many nice features out of the box that make get something woking very quickly.
+
+--
+## Advantages
+
+ * Counters
+ * Indices
+ * Relations
+ * Expando map
+
+--
+## Drawbacks
+
+ * Dealing with bootstrapping
+ * Based on Thrift
+ * Only easy data access is via the application
+
+--
+## Example of Object
+
+//TODO show ORM object
+
+--
+## Example of Query
+
+//TODO show example ORM query
+
+----
+## Cassandra GORM
+
+A true GORM implementation for Cassandra based on Spring Datas Cassandra work which under the covers uses the Java Native Driver. It is relatively new, so there are rough edges.
+
+--
+## Advantages
+
+  * Participates in GORM
+  * Can auto create the schema
+  * Same GORM syntax
+--
+## Drawbacks
+
+  * Allows use of Cassandra secondary indices
+  * All or nothing mapping*
+
+-note
+All or nothing mapping is just implementation currently it could be updated so this isn't a requirement.
+
+--
+## Example of Object
+
+--
+## Example of Query
+
+----
+## Astyanax
+
+This is a simple Grails plugin wrapping the Netflix Astyanax library. A client for working with Cassandra.
+
+--
+## Advantages
+
+ * More direct access to Cassandra
+ * Works with legacy Thrift tables
+ * Provides features of modern Cassandra clients
+  * Client Side Load Balancing
+  * Token Aware
+  * Node Discovery
+
+--
+## Drawbacks
+
+ * A slightly outdated view of Cassandra
+ * Still supported but not seeing tons of new features
+ * Lots of configuration needs to get a sensible start
+
+--
+## Example Interaction
+
+//TODO
+----
+## Java Native Driver
+
+The new Driver put out by DataStax for Cassandra. It doesn't have a plugin or anything yet so you must work with it directly.
+
+--
+## Advantages
+
+  * Supports Asynchronous Calls
+  * Default configuration is a sensible start
+  * Under active development
+  * Performance benefit for CQL prepared statements in C* 2.1+
+
+--
+## Drawbacks
+
+  * Low level
+  * Have to wire up and manage all your own connections
+
+--
+## My Pattern using it in Grails
+
+//TODO login attempts service and connections stuff
+
+----
+## Which to Use
+//TODO some image or somthing
+-note
+If thrift use astyanax or ORM
+If CQL and 100% data model is there use C* GORM
+If mixed use try the Java Native driver first.
+
+----
+## Basic Config
+
+ * Seeds
+ * Token Aware
+ * DC Aware
+ * Retries
