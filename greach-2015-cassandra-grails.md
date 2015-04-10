@@ -128,7 +128,7 @@ ORMs with Cassandra while handy are something to be slightly weary of, since Cas
 ----
 ## Cassandra ORM
 
-The older of the two ORMs this was modeled after GORM but didn't fully participate in GORM. Based on top of Astyanax and Thrift. Provides many nice features out of the box that make get something woking very quickly.
+The older of the two ORMs this was modeled after GORM but doesn't fully participate in GORM. Based on top of Astyanax and Thrift. Provides many nice features out of the box that make get something woking very quickly.
 
 --
 ## Advantages
@@ -148,12 +148,86 @@ The older of the two ORMs this was modeled after GORM but didn't fully participa
 --
 ## Example of Object
 
-//TODO show ORM object
+```groovy
+class AppScheduledEventHistory {
+	UUID id
+	String shard
+	String appId
+	Date scheduledTime
+	Long executionTime
+	AppScheduledEventStatus executionStatus
+
+	static cassandraMapping = [
+    unindexedPrimaryKey: "id",
+    explicitIndexes: [ ["appId"],
+      ["scheduledEventId"],
+      ["timeBucket","shard"],
+      ["timeBucket","shard","executionStatus"]
+    ],
+    counters: [
+    	[groupBy: ["scheduledTime","shard","executionStatus"]]
+    ]
+  ]  
+}
+```
 
 --
 ## Example of Query
 
-//TODO show example ORM query
+```groovy
+AppScheduledEventHistory.get(params.id.toUUID())
+
+AppScheduledEventHistory.findAllByAppId(appId)
+
+AppScheduledEventHistory.findAllByTimeBucketAndShard(timeBucket, shard)
+```
+--
+## More Complex Query
+
+```groovy
+AppScheduledEventHistory.findAllByTimeBucketAndShardAndExecutionStatus(
+			params.timeBucket,
+			params.id,
+			params.status,
+			[consistencyLevel: scheduledEventService.consistencyLevel])
+```
+
+--
+## Using Counters
+
+```groovy
+AppScheduledEventHistory.getCountsGroupByScheduledTimeAndShardAndExecutionStatus(
+			start: start,
+			finish: finish,
+			reversed: true,
+			consistencyLevel: scheduledEventService.consistencyLevel)
+```
+--
+## Expando Map
+
+```groovy
+class DeviceData {
+	String deviceId
+	Map data
+
+	static cassandraMapping = [
+			unindexedPrimaryKey: "deviceId",
+			expandoMap         : "data"
+	]
+}
+```
+
+--
+## Using Expando Map
+
+```
+def d = new DeviceData()
+
+d.first = 'Bob'
+d.last = 'Dole'
+
+d.save()
+```
 
 ----
 ## Cassandra GORM
@@ -177,10 +251,10 @@ All or nothing mapping is just implementation currently it could be updated so t
 
 --
 ## Example of Object
-
+//TODO
 --
 ## Example of Query
-
+//TODO
 ----
 ## Astyanax
 
@@ -206,7 +280,16 @@ This is a simple Grails plugin wrapping the Netflix Astyanax library. A client f
 --
 ## Example Interaction
 
-//TODO
+```
+final SETTINGS_CF = new ColumnFamily("EventSettings", StringSerializer.get(), StringSerializer.get())
+
+def m = astyanaxService.keyspace().prepareMutationBatch()
+m.setConsistencyLevel(consistencyLevel)
+m.withRow(SETTINGS_CF, "shards").putColumn(shard, DateUtils.timeStamp(date))
+m.execute()
+```
+-note
+This is a wide row model, putting many columns on the same row dynamically.
 ----
 ## Java Native Driver
 
@@ -229,7 +312,52 @@ The new Driver put out by DataStax for Cassandra. It doesn't have a plugin or an
 --
 ## My Pattern using it in Grails
 
-//TODO login attempts service and connections stuff
+```
+class CQLSessionService implements InitializingBean {
+  //...
+
+  @Override
+  void afterPropertiesSet() throws Exception {
+  	keyspace = grailsApplication.config.astyanax.defaultKeyspace
+  	def clusterBuilder = new Cluster.Builder()
+  			.withRetryPolicy(DowngradingConsistencyRetryPolicy.INSTANCE)
+  			.withLoadBalancingPolicy(new TokenAwarePolicy(new DCAwareRoundRobinPolicy()))
+  			.withReconnectionPolicy(new ConstantReconnectionPolicy(100L))
+  			.withSocketOptions(new SocketOptions().setKeepAlive(true))
+
+    def contacts = ["192.168.0.1","192.168.0.3"]
+  	contacts.each { String contact ->
+  		clusterBuilder.addContactPoint(contact)
+  	}
+
+  	cluster = clusterBuilder.build()
+  	cluster.getConfiguration()
+  	session = cluster.connect()
+  }
+}
+```
+--
+## Using the SessionService
+
+```
+class LoginAttemptService {
+	def CQLSessionService
+
+	static transactional = false
+
+	private final String tableName = "LoginAttempts"
+	private PreparedStatement login_attempt_insert
+
+	@PostConstruct
+	private void prepareStatements() {
+		def session = CQLSessionService.session
+		def keyspace = CQLSessionService.keyspace
+
+		login_attempt_insert = session.prepare("""INSERT INTO ${keyspace}.${tableName}
+	 		(userName, successful, ipAddress, userAgent, method, dateCreated) VALUES ( ?, ?, ?, ?, ?, ?);""")
+	}
+}
+```
 
 ----
 ## Which to Use
