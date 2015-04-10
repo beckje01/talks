@@ -4,10 +4,8 @@
   * Simple Handler Example
   * Ratpack Sessions
   * Pac4j
-  ** Intro to Pac4J
-  ** How it works with ratpak
-  * Twitter Auth pac4j Example
-  * Basic Auth pac4j Example
+  * BasicAuth Example
+  * Twitter Auth Example
   * Case Study CellarHQ
   ** What is CellarHQ
   ** What is special about their auth
@@ -155,6 +153,8 @@ sessionStorage.put("example", "Galaxy")
 sessionStorage.get("example")
 ```
 
+[Session Example](https://github.com/beckje01/ratpack-greach-simple/blob/session/src/ratpack/Ratpack.groovy)
+
 --
 ## Future of Ratpack Sessions
 
@@ -180,9 +180,51 @@ See: https://github.com/ratpack/ratpack/issues/447
 ----
 ## Pac4j
 
+Provides an easy framework to work across many Java security libraries and authentication systems. Such as authenticating with Twitter.
+
+--
+## Pac4j with Ratpack
+
+There is a pac4j [module](http://ratpack.io/manual/current/api/index.html?ratpack/pac4j/package-summary.html) that ties pac4j into Ratpack well providing some basics you can extend.
+
+--
+## Ratpack Authorizer
+
+[Authorizer](http://ratpack.io/manual/current/api/ratpack/pac4j/Authorizer.html) The interface that is used to determine if authentication required and deals with authorization.
+
+You can extend [AbstractAuthorizer](http://ratpack.io/manual/current/api/ratpack/pac4j/AbstractAuthorizer.html) to just check if authentication is required and just not do authorization.
+
+----
+## BasicAuth Example
+
+build.gradle
+```groovy
+compile ratpack.dependency('pac4j')
+compile "org.pac4j:pac4j-http:1.6.0"
+```
+--
+
+```groovy
+bindings {
+  add SessionModule
+  add new MapSessionsModule(1000, 360)
+  add new Pac4jModule(new BasicAuthClient(new DumbUsernamePasswordAuthenticator()), new SecureAllAuthorizer())
+}
+
+handlers {
+  handler {
+    render "Hello World"
+  }
+}
+```
+--
+
+[This Example](https://github.com/beckje01/ratpack-greach-simple/tree/basicAuth)
+
+ * [DumbUsernamePasswordAuthenticator](https://github.com/beckje01/ratpack-greach-simple/blob/basicAuth/src/main/groovy/DumbUsernamePasswordAuthenticator.groovy)
+ * [SecureAllAuthorizer](https://github.com/beckje01/ratpack-greach-simple/blob/basicAuth/src/main/groovy/SecureAllAuthorizer.groovy)
+
+----
+## Twitter Auth Example
 -note
-* Pac4j
-** Intro to Pac4J
-** How it works with ratpak
 * Twitter Auth pac4j Example
-* Basic Auth pac4j Example
