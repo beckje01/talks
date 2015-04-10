@@ -118,11 +118,11 @@ Talk about how read before write is bad.
 ## What is available for Grails
 
   * *ORMs*
-    * [Cassandra ORM]()
-    * [Cassandra GORM]()
+    * [Cassandra ORM](https://grails.org/plugin/cassandra-orm)
+    * [Cassandra GORM](https://grails.org/plugin/cassandra)
   * *Direct Cassandra Access*
-    * [Astyanax Plugin]()
-    * [Java Native Driver]()
+    * [Astyanax Plugin](https://grails.org/plugin/cassandra-astyanax)
+    * [Java Native Driver](https://github.com/datastax/java-driver)
 -note
 ORMs with Cassandra while handy are something to be slightly weary of, since Cassandra dosen't have relations built in, there may be a bit of a mismatch between any ORM and Cassandra.
 ----
@@ -251,10 +251,65 @@ All or nothing mapping is just implementation currently it could be updated so t
 
 --
 ## Example of Object
-//TODO
+```groovy
+class Subscription {
+	UUID id
+	URI product
+	Date startDate
+	State state
+	Date endDate
+
+	static mapping = {
+    table "subscription"
+		id generator: 'assigned'
+		version false
+	}
+
+	static constraints = {
+		startDate nullable: false
+		endDate nullable: true
+		state nullable: false
+		product nullable: false
+
+	}
+}
+```
 --
 ## Example of Query
-//TODO
+
+```groovy
+def subs = Subscription.get(uuid)
+```
+--
+## Compound Key
+```
+class Person  {
+    String lastName
+    String firstName
+    Integer age = 0
+    String location
+
+    static mapping = {
+        id name:"lastName", primaryKey:[ordinal:0, type:"partitioned"], generator:"assigned"
+        firstName index:true, primaryKey:[ordinal:1, type: "clustered"]
+        age primaryKey:[ordinal:2, type: "clustered"]
+        version false  
+    }
+}
+```
+
+--
+## More Ways to Query
+
+```
+//Will work
+def people = Person.findAllbyLastNameAndFirstName('Beck','Jeff')
+
+//Will Fail
+def people = Person.findAllbyFirstName('Jeff')
+
+```
+
 ----
 ## Astyanax
 
@@ -361,7 +416,7 @@ class LoginAttemptService {
 
 ----
 ## Which to Use
-//TODO some image or somthing
+![](images/cassandra-tree.png)
 -note
 If thrift use astyanax or ORM
 If CQL and 100% data model is there use C* GORM
