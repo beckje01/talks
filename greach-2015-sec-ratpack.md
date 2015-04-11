@@ -244,9 +244,15 @@ ratpack {
 --
 ## Create a Twitter App
 
-[Apps Twitter](https://apps.twitter.com)
+ * [Apps Twitter](https://apps.twitter.com)
+ * [Twitter Example](https://github.com/beckje01/ratpack-greach-simple/tree/twitter)
 
-[Twitter Example](https://github.com/beckje01/ratpack-greach-simple/tree/twitter)
+--
+## Try Github
+
+ * [GitHub Apps](https://github.com/settings/applications)
+ * [GitHub Scopes](https://developer.github.com/v3/oauth/#scopes)
+
 ----
 ## Case Study CellarHQ
 
