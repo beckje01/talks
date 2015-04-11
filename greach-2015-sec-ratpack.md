@@ -7,12 +7,6 @@
   * BasicAuth Example
   * Twitter Auth Example
   * Case Study CellarHQ
-  ** What is CellarHQ
-  ** What is special about their auth
-  ** Multi identity providers
-  ** User decoration
-  ** How decorator works
-  ** Using the user inside Ratpack
 ----
 ## $ whoami
 
@@ -74,7 +68,7 @@ Here we are actually checking a token now its a simple hard coded value but you 
  * Stateless MicroService
  * Prototyping
 
- ----
+----
  ## Force SSL
 
  ```groovy
@@ -86,10 +80,10 @@ Here we are actually checking a token now its a simple hard coded value but you 
  }
  ```
 
- -note
+-note
  AWS Headers: http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#x-forwarded-headers
 
- --
+--
  ## AWS Example
 
 Using the ELB for SSL termination, we can easily detect if the request was made with https.
@@ -97,6 +91,11 @@ Using the ELB for SSL termination, we can easily detect if the request was made 
 ```
 request.headers.get('X-Forwarded-Proto') != 'https'
 ```
+--
+
+![](images/aws-elb.png)
+
+
 ----
 ## Ratpack Sessions
 
@@ -184,7 +183,7 @@ There is a pac4j [module](http://ratpack.io/manual/current/api/index.html?ratpac
 
 [Authorizer](http://ratpack.io/manual/current/api/ratpack/pac4j/Authorizer.html) The interface that is used to determine if authentication required and deals with authorization.
 
-You can extend [AbstractAuthorizer](http://ratpack.io/manual/current/api/ratpack/pac4j/AbstractAuthorizer.html) to just check if authentication is required and just not do authorization.
+You can extend [AbstractAuthorizer](http://ratpack.io/manual/current/api/ratpack/pac4j/AbstractAuthorizer.html) to just check if authentication is required and not do authorization.
 
 ----
 ## BasicAuth Example
@@ -327,3 +326,8 @@ CellarHQ uses [HandlerDecorator](http://ratpack.io/manual/current/api/index.html
 
 -note
 This is why we don't have to put a login handler directly in the chain it is done for us.
+
+--
+## Tie in for Users
+
+CellarHQ uses the AuthSuccessCallback to tie into some of their functions such as setting the default "cellar" to display.
