@@ -1,7 +1,7 @@
 ## Agenda
   * whoami
-  * Force SSL
   * Simple Handler Example
+  * Force SSL
   * Ratpack Sessions
   * Pac4j
   * BasicAuth Example
@@ -13,28 +13,6 @@
   ** User decoration
   ** How decorator works
   ** Using the user inside Ratpack
-
--note
-Full Agenda
-
-* whoami
-* Simple Handler Auth Example _first handler in chain_
-** How it works
-** example of it working for token auth
-** Why this isn't good enough
-** When it can be used _forcing SSL_
-* Pac4j
-** Intro to Pac4J
-** How it works with ratpak
-* Twitter Auth pac4j Example
-* Basic Auth pac4j Example
-* Case Study CellarHQ
-** What is CellarHQ
-** What is special about their auth
-** Multi identity providers
-** User decoration
-** How decorator works
-** Using the user inside ratpack
 ----
 ## $ whoami
 
@@ -46,17 +24,6 @@ Engineer at SmartThings
 Abstract
 
 So you are all excited about this hot framework Ratpack now you are about ready to launch into production. But you need security, I will go over using pac4j with Ratpack to secure your application. Showing integrations with Twitter, Basic Auth, and others. I will also go over a case study of CellarHQ and their security in Ratpack.
-
-----
-## Force SSL
-
-//TODO
-
--note
-AWS Headers: http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#x-forwarded-headers
-
---
-## AWS Example
 
 ----
 ## Simple Handler
@@ -107,6 +74,29 @@ Here we are actually checking a token now its a simple hard coded value but you 
  * Stateless MicroService
  * Prototyping
 
+ ----
+ ## Force SSL
+
+ ```groovy
+ handler {
+   if (!checkForSSL) {
+       redirect(301, request.rawUri)
+   }
+   next()
+ }
+ ```
+
+ -note
+ AWS Headers: http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#x-forwarded-headers
+
+ --
+ ## AWS Example
+
+Using the ELB for SSL termination, we can easily detect if the request was made with https.
+
+```
+request.headers.get('X-Forwarded-Proto') != 'https'
+```
 ----
 ## Ratpack Sessions
 
@@ -182,6 +172,8 @@ See: https://github.com/ratpack/ratpack/issues/447
 
 Provides an easy framework to work across many Java security libraries and authentication systems. Such as authenticating with Twitter.
 
+[pac4j.org](http://www.pac4j.org/#1)
+
 --
 ## Pac4j with Ratpack
 
@@ -226,5 +218,112 @@ handlers {
 
 ----
 ## Twitter Auth Example
+
+build.gradle
+```groovy
+compile ratpack.dependency('pac4j')
+compile "org.pac4j:pac4j-oauth:1.6.0"
+```
+
+--
+
+```groovy
+ratpack {
+	bindings {
+		add SessionModule
+		add new MapSessionsModule(1000, 360)
+		add new Pac4jModule(new TwitterClient("key", "secret"), new SecureAllAuthorizer())
+	}
+
+	handlers {
+		handler {
+			render "Hello Twitter"
+		}
+	}
+}
+```
+--
+## Create a Twitter App
+
+[Apps Twitter](https://apps.twitter.com)
+
+[Twitter Example](https://github.com/beckje01/ratpack-greach-simple/tree/twitter)
+----
+## Case Study CellarHQ
+
+A online list of your beer cellar.
+
+--
+## Why do we care
+
+Written is Ratpack
+
+--
+## What do they do
+
+ * Dual Twitter and Web Form Authentication
+ * Complex Authorizer
+ * Handler Decoration
+ * Uses Roles
+
+----
+## Dual Twitter and Web Form
+
+Supply their own AuthenticationModule instead of the Pac4j Module.
+
+--
+## Authorizer
+
+Based around a white list for anonymous action
+
+```groovy
+final static List<String> ANONYMOUS_WHITELIST = [
+        '',
+        'about',
+        /styles\/.*/,
+        /images\/.*/,
+        /scripts\/.*/,
+        /pac4j.*/,
+        'health-checks'
+]
+
+```
+--
+
+```
+boolean isAuthenticationRequired(Context context) {
+    return !matchesAnyPath(context.request.path, ANONYMOUS_WHITELIST)
+}
+
+private boolean matchesAnyPath(String subject, List<String> patterns) {
+    return matchesAny(subject, patterns.collect { String pattern -> (String) "^${pattern}/?\$"})
+}
+
+private boolean matchesAny(String subject, List<String> patterns) {
+    return patterns.any { String pattern -> subject.matches(pattern) }
+}
+```
+--
+## Authorization
+
+```
+void handleAuthorization(Context context, UserProfile userProfile) throws Exception {
+    if (matchesAnyPath(context.request.path, ADMIN_ROLE_REQUIRED) && !userHasRole(userProfile, Role.ADMIN)) {
+        context.redirect('/login?error=' + Messages.UNAUTHORIZED_ERROR)
+        return
+    }
+    context.next()
+}
+
+private boolean userHasRole(UserProfile userProfile, Role role) {
+    return userProfile.roles.contains(role.toString())
+}
+```
+
+--
+## Handler Decoration
+
+CellarHQ uses [HandlerDecorator](http://ratpack.io/manual/current/api/index.html?ratpack/handling/HandlerDecorator.html) to apply their login handlers to the chain. The same method used by the Pac4j Module.
+
 -note
-* Twitter Auth pac4j Example
+This is why we don't have to put a login handler directly in the chain it is done for us.
