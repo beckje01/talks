@@ -20,7 +20,6 @@ SELECT * FROM User WHERE id='11';
 ## Code 2
 
 ```groovy
-
 def x = 1
 
 ```

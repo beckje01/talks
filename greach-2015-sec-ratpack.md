@@ -27,7 +27,7 @@ Specify a handler at the start of the chain that all request will go through.
 ```groovy
 handlers{
   handler {
-    //All traffic hits this handler frist
+    //All traffic hits this handler first
   }
 }
 ```
@@ -60,7 +60,7 @@ Here we are actually checking a token now its a simple hard coded value but you 
  * Identities
  * Roles / Authorization
  * Mixed Secure / Insecure Content
- * Multipul Authentication Options
+ * Multiple Authentication Options
 
 --
 ## When This Works
