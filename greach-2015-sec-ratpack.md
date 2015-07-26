@@ -20,6 +20,11 @@ Abstract
 So you are all excited about this hot framework Ratpack now you are about ready to launch into production. But you need security, I will go over using pac4j with Ratpack to secure your application. Showing integrations with Twitter, Basic Auth, and others. I will also go over a case study of CellarHQ and their security in Ratpack.
 
 ----
+## Ratpack Version Note
+
+This talk and slides are targeted at Ratpack v0.9.15
+
+----
 ## Simple Handler
 
 Specify a handler at the start of the chain that all request will go through.
