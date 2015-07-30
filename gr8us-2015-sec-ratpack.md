@@ -127,8 +127,7 @@ String sessionId = session.id
 //Terminate Session
 session.terminate().then()
 ```
-//TODO LINK TO Session Code Branch
-
+[Code Branch](https://github.com/beckje01/ratpack-gr8us-sec/tree/session)
 -note
 
 Terminate the session is an Operation so you need to call then() or then {}
@@ -240,7 +239,7 @@ handlers {
 ## Create a Twitter App
 
  * [Apps Twitter](https://apps.twitter.com)
- * [Twitter Example]() //TODO link
+ * [Twitter Example](https://github.com/beckje01/ratpack-gr8us-sec/tree/twitterAuth)
 
 ----
 ## With multiple clients
