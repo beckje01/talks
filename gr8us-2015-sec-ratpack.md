@@ -179,8 +179,39 @@ Example of a redis SessionStore or other in host needs.
 
 There is a Pac4j [class](http://ratpack.io/manual/0.9.19/api/index.html?ratpack/pac4j/RatpackPac4j.html) that ties Pac4j into Ratpack well providing some basics you can extend.
 
+--
+## What has changed
+
+ * No more Authorizer
+ * No more guice module
+
 ----
 ## BasicAuth Example
+
+build.gradle
+```groovy
+compile ratpack.dependency('pac4j')
+compile "org.pac4j:pac4j-http:1.7.0"
+```
+--
+
+```groovy
+handlers{
+  all(RatpackPac4j.authenticator(
+    new BasicAuthClient(
+      new SimpleTestUsernamePasswordAuthenticator(),
+      new UsernameProfileCreator())))
+
+  prefix("auth"){
+    //Require all requests past this point to have auth.
+    all(RatpackPac4j.requireAuth(BasicAuthClient))
+    get{
+      render "An authenticated page."
+    }
+  }
+}
+```
+
 ----
 ## Twitter Auth Example
 ----
