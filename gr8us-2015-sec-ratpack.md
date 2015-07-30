@@ -26,7 +26,7 @@ This talk and slides are targeted at Ratpack v0.9.19-SNAPSHOT
 
 Specify a handler at the start of the chain that all request will go through.
 
-```groovy
+```java
 handlers{
   all {
     //All traffic hits this handler first
@@ -40,7 +40,7 @@ We can provide a simple handler at the start of the chain that intercepts all tr
 --
 ## Simple Handler
 
-```groovy
+```java
 all {
   if (request.headers['Authorization'] != "Token faketoken") {
     response.status(401)
@@ -73,7 +73,7 @@ Here we are actually checking a token now its a simple hard coded value but you 
 ----
  ## Force SSL
 
- ```groovy
+ ```java
  all {
    if (!checkForSSL) {
        redirect(301, request.rawUri)
@@ -111,7 +111,7 @@ compile ratpack.dependency('session')
 
 The SessionModule will make sure every request is set up with a session. Also by default provide an in memory session data store.
 
-```groovy
+```java
 bindings {
   module SessionModule
 }
@@ -140,7 +140,7 @@ An encrypted cookie that stores session data.
 
 Use the [ClientSideSessionModule](http://ratpack.io/manual/0.9.19/api/index.html?ratpack/session/clientside/ClientSideSessionModule.html)
 
-```groovy
+```java
 bindings {
   module(ClientSideSessionModule, { config ->
     config.setSessionCookieName("s1")
@@ -167,7 +167,7 @@ bindings {
 
 You can easily change out the session store by providing an implementation of the [SessionStore](http://ratpack.io/manual/0.9.19/api/index.html?ratpack/session/SessionStore.html) interface.
 
-```groovy
+```java
 protected void configure() {
   bind(SessionStore).to(YourSessionStore).in(Singleton);
 }
@@ -189,13 +189,13 @@ There is a Pac4j [class](http://ratpack.io/manual/0.9.19/api/index.html?ratpack/
 ## BasicAuth Example
 
 build.gradle
-```groovy
+```java
 compile ratpack.dependency('pac4j')
 compile "org.pac4j:pac4j-http:1.7.0"
 ```
 --
 
-```groovy
+```java
 handlers{
   all(RatpackPac4j.authenticator(
     new BasicAuthClient(
@@ -214,9 +214,75 @@ handlers{
 
 ----
 ## Twitter Auth Example
+
+build.gradle
+```java
+compile ratpack.dependency('pac4j')
+compile "org.pac4j:pac4j-oauth:1.7.0"
+```
+
+--
+
+```java
+handlers {
+  all(RatpackPac4j.authenticator(new TwitterClient("key", "secret")))
+
+  prefix("auth") {
+    //Require all requests past this point to have auth.
+    all(RatpackPac4j.requireAuth(TwitterClient))
+    get {
+      render "An authenticated page."
+    }
+  }
+}
+```
+--
+## Create a Twitter App
+
+ * [Apps Twitter](https://apps.twitter.com)
+ * [Twitter Example]() //TODO link
+
 ----
 ## With multiple clients
+
+Setup all the clients you want.
+
+```java
+all(RatpackPac4j.authenticator(
+  new BasicAuthClient(
+    new SimpleTestUsernamePasswordAuthenticator(),
+    new UsernameProfileCreator()),
+  new TwitterClient("key", "secret")))
+```
+--
+
+```java
+prefix("auth") {
+  //Require all requests past this point to have auth.
+  all({ ctx ->
+    RatpackPac4j.userProfile(ctx).then { opUp ->
+      if (opUp.isPresent()) {
+        ctx.next(single(opUp.get()))
+      } else {
+        ctx.redirect(302, "/login")
+      }
+    }
+  })
+
+  get { UserProfile userProfile ->
+    render "An authenticated page. ${userProfile.getId()}"
+  }
+}
+```
+--
+## Try Github
+
+ * [GitHub Apps](https://github.com/settings/applications)
+ * [GitHub Scopes](https://developer.github.com/v3/oauth/#scopes)
+
 ----
-## Limit client to a path
-----
-// Mention open sourced: CellarHQ
+## Real World Use
+
+CellarHQ [Open Source](https://github.com/CellarHQ/cellarhq.com)
+
+_Note_ A few versions behind but will get updated.
