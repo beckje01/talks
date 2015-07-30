@@ -3,10 +3,7 @@
   * Simple Handler Example
   * Force SSL
   * Ratpack Sessions
-  * Pac4j
-  * BasicAuth Example
-  * Twitter Auth Example
-  * Case Study CellarHQ
+  * Pac4j and Ratpack
 ----
 ## $ whoami
 
@@ -22,7 +19,7 @@ So you are all excited about this hot framework Ratpack now you are about ready 
 ----
 ## Ratpack Version Note
 
-This talk and slides are targeted at Ratpack v0.9.19
+This talk and slides are targeted at Ratpack v0.9.19-SNAPSHOT
 
 ----
 ## Simple Handler
@@ -99,3 +96,96 @@ request.headers.get('X-Forwarded-Proto') != 'https'
 --
 
 ![](images/aws-elb.png)
+
+----
+## Ratpack Sessions
+
+The `Session` module provides the basics of sessions as well as a in memory data store.
+
+```
+compile ratpack.dependency('session')
+```
+
+--
+## Session Module
+
+The SessionModule will make sure every request is set up with a session. Also by default provide an in memory session data store.
+
+```groovy
+bindings {
+  module SessionModule
+}
+```
+--
+## Interact with the Session
+```
+def session = context.get(Session)
+
+//Get Session ID
+String sessionId = session.id
+
+//Terminate Session
+session.terminate().then()
+```
+//TODO LINK TO Session Code Branch
+
+-note
+
+Terminate the session is an Operation so you need to call then() or then {}
+
+----
+## ClientSideSession
+
+An encrypted cookie that stores session data.
+
+Use the [ClientSideSessionModule](http://ratpack.io/manual/0.9.19/api/index.html?ratpack/session/clientside/ClientSideSessionModule.html)
+
+```groovy
+bindings {
+  module(ClientSideSessionModule, { config ->
+    config.setSessionCookieName("s1")
+    config.setSecretToken("fakeToken")
+  })
+}
+```
+
+--
+## Advantages
+
+ * No extra infrastructure to support shared sessions.
+ * Encrypted so the session data can't be messed with.
+
+--
+## Disadvantages
+
+ * Max cookie size
+ * More data transfer every request
+ * Requires managing a key
+
+----
+## Providing a SessionStore
+
+You can easily change out the session store by providing an implementation of the [SessionStore](http://ratpack.io/manual/0.9.19/api/index.html?ratpack/session/SessionStore.html) interface.
+
+```groovy
+protected void configure() {
+  bind(SessionStore).to(YourSessionStore).in(Singleton);
+}
+```
+-note
+Example of a redis SessionStore or other in host needs.
+----
+## Pac4j
+
+There is a Pac4j [class](http://ratpack.io/manual/0.9.19/api/index.html?ratpack/pac4j/RatpackPac4j.html) that ties Pac4j into Ratpack well providing some basics you can extend.
+
+----
+## BasicAuth Example
+----
+## Twitter Auth Example
+----
+## With multiple clients
+----
+## Limit client to a path
+----
+// Mention open sourced: CellarHQ
