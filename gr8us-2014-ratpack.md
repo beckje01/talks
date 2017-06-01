@@ -154,7 +154,7 @@ def foo = context.maybeGet(Foo.class)
 ~~
 ## Retrieving Values Groovy Sugar
 
-In a handler you can also retrive values by declaring them as params to the handler closures, this works like a `context.get()`
+In a handler you can also retrieve values by declaring them as params to the handler closures, this works like a `context.get()`
 
 ```groovy
 

@@ -9,7 +9,6 @@
 * Rendering
 * Testing
 * Caching
-* NoSQL
 * Current Clear Easier Paths
 * Questions
 
@@ -31,7 +30,7 @@ Software Architect at SmartThings
 ----
 ## Introductions - Grails
 
-  * Convention over configuration.
+  * Convention over configuration
   * Spring Boot Based
   * Servlet Oriented
   * GORM
@@ -225,42 +224,42 @@ git tag `idonly`
 
 While you can use Spock and Geb with both frameworks how you think about testing varies greatly.
 
---
+---
 ## Grails Test Phases
 
 Grails has a number of test phases that come with it out of the box, unit, integration, functional. While Ratpack doesn't have any special phases just what comes from Gradle.
 
---
+---
 ## Grails Testing Focus
 
 Unit tests depend on mixins for testing services and controllers. These will only have access to the mocks and things provided.
 
---
+---
 ## Grails Testing Focus
 
 Integration tests load up the application context so everything is wired and ready to go.
 
---
+---
 ## Grails Testing Focus
 
 Functional tests the whole app is running and listening to http requests.
 
---
+---
 ## Grails Testing
 
 Tests tend to be mostly unit based on the time to run the tests. Running the whole application tends to take a noticeable amount of time.
 
---
+---
 ## Ratpack Testing
 
 Ratpack testing tends to focus on lots of running apps. Its very easy to put just the part you are testing in an embedded app and test it directly.
 
---
+---
 ## Ratpack Testing
 
 Ratpack offers an ApplicationUnderTest idea that sets up the app and allows overriding registry elements via impositions. Ratpack apps start so fast it makes the most sense to just start up and teardown these apps with ever test.
 
---
+---
 ## Ratpack Testing
 
 When testing code interacting with executions you need to use helpers like `ExecHarness`. Or while working with handlers you can test with the `RequestFixture`. These are nice to test in a very isolated way but compared to setting up an Embedded app it tends to be harder most of the time.
