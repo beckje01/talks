@@ -536,7 +536,7 @@ gradle shadowJar
 ```
 
 ---
-## Run as a Far Jar
+## Run as a Fat Jar
 
 We can also just run the jar quickly.
 
