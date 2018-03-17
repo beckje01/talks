@@ -314,4 +314,4 @@ Trace at 1% given the frequency of the request call and how long we want to keep
 * [Zipkin Issues in GitHub](https://github.com/openzipkin/zipkin/issues)
 * https://zipkin.io/pages/architecture.html
 * https://cloud.spring.io/spring-cloud-sleuth/
-* [Zipking Gitter](https://gitter.im/openzipkin/zipkin)
+* [Zipkin Gitter](https://gitter.im/openzipkin/zipkin)
