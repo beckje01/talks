@@ -11,10 +11,6 @@
 * Mobile/External Clients 
 * How often to sample
 
-
-
-
-
 -note
 Abstract
 As the complexity of our systems grow so must our tooling, Zipkin is a great distributed tracing tool that helps deal with tracing in microservices. But once we have to tool in place how do we actually fix problems in our system? We have been using zipkin in production at SmartThings so I’m going to share our insights.
@@ -23,27 +19,14 @@ In this talk we will review how to get quickly get zipkin tracing added to Ratpa
 
 No zipkin experience required.
 
-
-
-
-Random links
+**Random links**
 Trace with kafka partion etc https://tracing.smartthingstlm.com/zipkin/traces/a4d0696ac0233fc7
 Auth with cassandra details etc https://tracing.smartthingstlm.com/zipkin/traces/2740418edded39d0
 Trace of an event push https://tracing.smartthingstlm.com/zipkin/traces/8dafe05624989391
 lots of oauth dance https://tracing.smartthingstlm.com/zipkin/traces/74a1370c94b6fd5a
 
 
-
-good reading 
-https://zipkin.io/pages/architecture.html
-
-https://cloud.spring.io/spring-cloud-sleuth/
-http://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/2.0.0.M8/
-
-
-
-
-Other uses for tracing:
+**Other uses for tracing:**
 functional tests
 show arch
 track calls to deprecated services
@@ -87,7 +70,7 @@ Zipkin mostly means the backend server that collects and surfaces trace data.
 ---
 ## OpenZipkin
 
-The OpenZipkin GitHub group holds many great tools such as the java tracker brave. 
+The OpenZipkin GitHub group holds many great tools such as the java tracer brave. 
 
 OpenZipkin https://github.com/openzipkin/
 
@@ -107,14 +90,14 @@ OpenZipkin https://github.com/openzipkin/
 ----
 ## How Data flows between services
 
-Service to Service the tracker deals with propagating trace info.
+Service to Service the tracer deals with propagating trace info.
 
 HTTP for example uses known Headers. [B3](https://github.com/openzipkin/b3-propagation)
 
 ----
 ## How data gets to Zipkin
 
-The tracker reports all the details of a span to the Zipkin backend.
+The tracer reports all the details of a span to the Zipkin backend.
 
 HTTP calls by default.
 
