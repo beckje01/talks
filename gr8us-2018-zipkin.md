@@ -19,12 +19,6 @@ In this talk we will review how to get quickly get zipkin tracing added to Ratpa
 
 No zipkin experience required.
 
-**Random links**
-Trace with kafka partion etc https://tracing.smartthingstlm.com/zipkin/traces/a4d0696ac0233fc7
-Auth with cassandra details etc https://tracing.smartthingstlm.com/zipkin/traces/2740418edded39d0
-Trace of an event push https://tracing.smartthingstlm.com/zipkin/traces/8dafe05624989391
-lots of oauth dance https://tracing.smartthingstlm.com/zipkin/traces/74a1370c94b6fd5a
-
 
 **Other uses for tracing:**
 functional tests
@@ -342,4 +336,11 @@ Trace at 1% given the frequency of the request call and how long we want to keep
 * [Zipkin Gitter](https://gitter.im/openzipkin/zipkin)
 * [Zipkin Architecture](https://zipkin.io/pages/architecture.html)
 * [Sleuth Project Page](https://cloud.spring.io/spring-cloud-sleuth/)
+
+----
+## Scratch Project
+
+A simple project to act as a scratch area to try zipkin hands on.
+
+[http://bit.ly/2LrYmHX](http://bit.ly/2LrYmHX)
 
