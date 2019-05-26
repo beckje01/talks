@@ -1,0 +1,191 @@
+== OAuth 2
+
+Two major uses:
+
+1. Your application has it's own Authorization Server 
+1. Your Application is integrating with a 3rd party
+
+=== With Authorization Server
+
+This is where you are defining all the clients that integrate with your system. Personally called "OAuth In" as these are things calling to your system to operate on it.
+
+[plantuml%interactive, _images/oauthin, svg, height=350, width=500]
+----
+@startuml
+  title OAuth "In"
+  rectangle mobile as "Mobile App"
+  rectangle resource as "Resource Server"
+  rectangle auth as "Authorization server"
+
+
+  mobile -right-> auth: Get Token
+  mobile -down-> resource: Call API
+  resource -> auth: Check Token\n[[https://tools.ietf.org/html/rfc7662 Token Introspection]]
+
+@enduml
+----
+
+
+=== External Integration
+
+This is where you are getting a single client from a 3rd party that your whole application uses. Personally called "OAuth Out" as it is dealing with authorization that is done externally.
+
+[plantuml%interactive, _images/oauthout, svg, height=400, width=400]
+----
+@startuml
+  title OAuth "Out"
+
+  rectangle mobile as "Mobile App"
+  rectangle resource as "App Server"
+
+  rectangle auth as "GitHub"
+
+  mobile -> resource: Get Info
+  resource -> auth: List PR
+  
+  resource <.. auth: Token
+  mobile ..> auth: Authorize Access
+ 
+
+@enduml
+----
+
+
+== Anatomy of an Authorization
+
+* Clients
+* Grants
+* Scopes
+* Tokens
+
+== OAuth Client
+
+The application that is doing the call for authorization.
+
+=== Parts of a Client
+
+* Client ID 
+* Client Secret
+* Set of Grants
+* Set of Scopes
+
+=== Optional Parts of a Client
+
+* Name -- Human readable name of a client.
+* Token Expiration -- How long should an access token be valid
+* Refresh Expiration -- How long should a refresh be valid
+* Redirect URI -- Used for Authorization Code, what urls are valid for this client.
+
+
+== OAuth 2 Grants
+
+OAuth grants describe *HOW* a token is given out. For a given OAuth Client they have a set of acceptable grants available.
+
+=== Grants Used At SmartThings
+
+* Authorization Code
+* Client Credentials
+* Implicit
+* Refresh
+* Device OAuth
+
+=== Authorization Code
+
+The traditional OAuth Grant flow, the user is presented with a authorize page after clicking authorize we redirect back to the 3rd party including an auth code. The 3rd party posts the code and gets the token set back.
+
+* https://oauth.net/2/grant-types/authorization-code/[Overview]
+* https://tools.ietf.org/html/rfc6749#section-1.3.1[Spec]
+
+=== Client Credentials
+
+This is a grant that doesn't have a principal, it just uses the client itself. The client id and secret are used to directly get a token. This is a non principaled version of _password_ grant.
+
+* https://oauth.net/2/grant-types/client-credentials/[Overview]
+* https://tools.ietf.org/html/rfc6749#section-1.3.4[Spec]
+
+=== Implicit 
+
+This grant is used internally to the system. It means authentication and authorization have happened outside of oauth.
+
+* https://oauth.net/2/grant-types/implicit/[Overview]
+* https://tools.ietf.org/html/rfc6749#section-1.3.2[Spec]
+
+=== Refresh
+
+Used to keep an authorization active. 
+
+You send in a refresh token to get a new token and refresh token.
+
+* https://oauth.net/2/grant-types/refresh-token/[Overview]
+* https://tools.ietf.org/html/rfc6749#section-1.5[Spec]
+
+=== Device OAuth
+
+Really useful for devices with screens but not great input.
+
+* https://oauth.net/2/grant-types/device-code/[Overview]
+* https://tools.ietf.org/html/draft-ietf-oauth-device-flow-13[Spec]
+
+
+== Scopes
+
+What can the client actually do. Always limit integrations to the least needed access (PoLP)
+
+=== GitHub Example
+
+* user -- Read Write Access to user profile
+* read:user -- Just read access to user profile
+* user:email -- Read users email address
+* delete_repo -- Delete a Repo
+
+== SmartThings Scopes
+
+* Designed to allow PoLP​
+* Fine Grained Scopes limiting access to areas of the platform​
+* Scopes within an area like devices break down more what can ​
+be done.
+
+=== permission:entity-type:entity-id​
+
+* Permission – What you can do to the entity​
+** R – Read about the entity​
+** W – Write change things about the entity​
+** X – Execute commands​
+* Entity-Type – What is this? Device, Location, Scene, …​
+* Entity-Id – Which Thing?
+
+=== Scenario
+
+* Location with 2 Devices​
+* Device 123: Smart lock​
+* Device 555: Temperature sensor
+
+=== r:devices:123, r:devices:555​
+
+* *Can* Read the state of all details of the devices 123 and 555.​
+* *Can't* execute commands​
+* *Can't* write device details like changing the name of the device
+
+
+=== r:devices:*, x:devices:123​
+
+* *Can* Read the state of all details of the devices 123, 555.​
+* *Can* execute commands for 123​
+* *Can't* write device details like changing the name of the device​
+* *Can't* execute commands on 555
+
+== Tokens
+
+* Access
+* Refresh 
+
+== Access Token​
+* Shorter lived​
+* Used to access the APIs themselves​
+* Sent many times​
+
+== Refresh Token​
+* Should be stored securely​
+* Allows getting new access tokens​
+* Sent infrequently​
+* Long lived

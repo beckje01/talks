@@ -420,6 +420,7 @@ section.has-dark-background h3 {
 	height: 62px;
 	background-position: center top;
 	background-color: #b5391e;
+	background-image:linear-gradient(180deg,#f15e22 0, #774519 );
 	/* picked from logo #EE4622 */
 	
 	padding-top: .75em;
