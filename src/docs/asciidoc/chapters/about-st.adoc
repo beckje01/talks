@@ -1,0 +1,36 @@
+== What is SmartThings?
+
+=== SmartThings Purpose
+
+stuff about st
+
+
+=== Connect All Your Devices
+
+* Hub Connected
+* Cloud to Cloud 
+* Device to Cloud 
+
+
+=== System Overview
+
+[plantuml%interactive, _images/diagramoverdev, svg, height=350, width=400]
+----
+@startuml
+  rectangle edge as "Edge"
+  rectangle hub as "Hub"
+	rectangle user as "User"
+	rectangle report as "Report"
+	database hubdb as "Hub\nDatabase"
+	database userdb as "User\nDatabase"
+
+  user -down-> userdb
+  hub -down-> hubdb
+
+  edge -down-> report
+  edge -down-> hub
+	edge -down-> user
+
+	report -> hub
+@enduml
+----

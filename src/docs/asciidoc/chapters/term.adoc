@@ -1,0 +1,6 @@
+== Terms
+
+* *Principal* -- The entity acting with the credential.
+* *Authentication* _Auth(n)_ -- proving something is the requested principal
+* *Authorization* _Auth(z)_ -- granting what a principal can do
+

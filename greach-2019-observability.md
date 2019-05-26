@@ -147,3 +147,8 @@ Same apps just add tracing.
 
 ----
 ## Questions
+
+----
+## We are Hiring
+
+http://bit.ly/SmartThingsJobs

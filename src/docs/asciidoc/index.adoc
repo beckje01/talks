@@ -1,0 +1,133 @@
+:revnumber: {project-version}
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../java]
+:navigation:
+:menu:
+:status:
+:title-slide-background-image: gr8eu-logo-2019.svg
+:title-slide-background-size: auto 75%
+:title-slide-background-position: center top
+:title-slide-transition: zoom
+:title-slide-transition-speed: fast
+:icons: font
+
+= : Application Security Options
+
+
+
++++<h2>+++
+SmartThings Case Study
++++</h2>+++
+
+[.notes]
+--
+Abstract
+
+When building a modern IoT platform you will have security concerns that span from hardware all the way out to consumers phones. We will go through a deep dive of many security concepts and talk about pros/cons of each option while discussing how we have scaled our solutions.
+
+The SmartThings cloud platform is a microservice architecture built out across many deployment methodologies in the cloud and we allow deep integrations from external developers. 
+
+Some of the security tech we will cover while also talking about how to scale these practices: 
+* HTTP Signatures
+* JWT/JWS/JWE
+* OAuth
+** prefix routing
+** metrics on number of uses for a tokens life cycle 
+
+After we get through a foundation of these security approaches we will work through these scenarios with real world examples from my experience at SmartThings
+
+* OAuth Provider
+* OAuth Consumer
+* API Security 
+* Connected Hardware
+* Service to Service Security
+
+By the end I you will have a good understanding of when you could make use of these different security methods.
+--
+
+== [.line-through]#Application Security Options#
++++<h2>+++
+Authorization and Authentication Options
++++</h2>+++
+
+== Agenda
+
+* Intro
+* Terminology 
+* OAuth
+* JWT Family
+* HTTP Signatures
+* SmartThings Uses
+* Scaling Auth
+
+
+include::chapters/about-st.adoc[]
+include::chapters/whoami.adoc[]
+
+include::chapters/term.adoc[]
+
+== OAuth
+
+
+== OAuth Grants
+
+OAuth grants describe *HOW* a token is given out. For a given OAuth Client they have a set of acceptable grants available.
+
+=== Grants Used At SmartThings
+
+* Authorization Code
+* Client Credentials
+* Implicit
+* Refresh
+* Device OAuth
+
+== Authorization Code
+
+The traditional OAuth Grant flow, the user is presented with a authorize page after clicking authorize we redirect back to the 3rd party including an auth code. The 3rd party posts the code and gets the token set back.
+
+* [Overview](https://oauth.net/2/grant-types/authorization-code/)
+* [Spec](https://tools.ietf.org/html/rfc6749#section-1.3.1)
+
+== Client Credentials
+
+This is a grant that doesn't have a principal, it just uses the client itself. The client id and secret are used to directly get a token. This is a non principaled version of _password_ grant.
+
+* [Overview](https://oauth.net/2/grant-types/client-credentials/)
+* [Spec](https://tools.ietf.org/html/rfc6749#section-1.3.4)
+
+== Implicit 
+
+This grant is used internally to the system. It means authentication and authorization have happened outside of oauth.
+
+* [Overview](https://oauth.net/2/grant-types/implicit/)
+* [Spec](https://tools.ietf.org/html/rfc6749#section-1.3.2)
+
+== Refresh
+
+Used to keep an authorization active. You send in a refresh token to get a new token and refresh token.
+
+* [Overview](https://oauth.net/2/grant-types/refresh-token/)
+* [Spec](https://tools.ietf.org/html/rfc6749#section-1.5)
+
+== Device OAuth
+
+We support this draft spec, really useful for devices with screens but not great input.
+
+* [Overview](https://oauth.net/2/grant-types/device-code/)
+* [Spec](https://tools.ietf.org/html/draft-ietf-oauth-device-flow-13)
+
+
+
+
+== JWT Family
+
+== HTTP Signatures
+
+==
+
+
+
+
+
+include::chapters/end.adoc[]

@@ -1,0 +1,12 @@
+apply plugin: "org.gradle.presentation.asciidoctor"
+
+
+
+presentation {
+    githubUserName.set("beckje01")
+    githubRepoName.set("talks")
+	dependencies {
+		asciidoctor("org.asciidoctor:asciidoctorj-diagram:1.5.16")
+		asciidoctor("org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15")
+	}
+}
