@@ -1,0 +1,94 @@
+== JWT Family
+
+* JWS - JSON Web Signature
+* JWT - JSON Web Token
+* JWE - JSON Web Encryption
+
+== JWS
+
+A way of signing, allows us to trust the data being exchanged.
+
+=== Why?
+
+* Allows keeping data client-side such as user or id without worry of tampering
+* Enables JWT 
+
+== JWT
+
+An open way of representing security claims. Built off of JWS.
+
+=== What are they good for?
+
+* They can be used as an access token; providing a self encoded token. 
+* Reduce datastore calls for the credentials.
+
+== Example
+```
+eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLm15ZG9tYWluLmNvbSIsImF1ZCI6IkExQjJDM0Q0RTUuY29tLm15ZG9tYWluLm15c2VydmljZSIsInN1YiI6ImphY2suc3BhcnJvd0BleGFtcGxlLmNvbSIsImluZm8iOiJIZWxsbyBXb3JsZCEiLCJsaXN0IjpbMSwyLDNdLCJleHAiOjE1NTg4ODY5NDMsImlhdCI6MTU1ODg4MzM0M30.Yx9fJClRiHEA-K3GM6lMYM5yUfOms83OD7mQReVfUlg
+```
+
+=== What in that?
+
+```json
+{ 
+  header: { alg: 'HS256' },
+  payload:
+   { iss: 'auth.mydomain.com',
+     aud: 'A1B2C3D4E5.com.mydomain.myservice',
+     sub: 'jack.sparrow@example.com',
+     info: 'Hello World!',
+     list: [ 1, 2, 3 ],
+     exp: 1558886943,
+     iat: 1558883343 }
+}
+```
+
+=== Try It
+
+https://jwt.io#debugger-io[jwt.io]
+
+Key to Verify Signature
+```
+$2b$10$ZK4oBaeh1FxM/K2cyI8/ceKqswYpVQwhE1yJz8zi7UUFwvKWB58Vu$2b$10$2IORPEmsyJi5d/5kg8GBGuGv28L69QOVM
+```
+
+== JWT Notes
+
+* Payload is in plaintext. _JWE Can Address_
+* Hard to Revoke
+* Can get very long for headers
+* Great way to reduce hops 
+
+== JWE
+
+A standard way of encrypting the payload of a JWT.
+
+=== Example
+```
+eyJhbGciOiJQQkVTMi1IUzM4NCtBMTkyS1ciLCJlbmMiOiJBMTkyR0NNIiwicDJjIjoxMDAwLCJwMnMiOiJVRUpGVXpJdFNGTXpPRFFyUVRFNU1rdFhBSU5kR21rY0g3emEifQ.8Q4fsEKZv5LXadmcQFiyzuq0R2nvHKQoadr9BIwQ4HM.qkFyEAVf2Rh8KRf7.4xtybi-H355cBzDRyc-mxqqlwwf3e72q34X9y6A-Kp2Yi1NngbNYYVjvuoL9oMFrdPQBghIYQR4H5qShxC8heGGlQBn53OJEH6BYx2yjh5qo19BXU5_J-uQ6SmCeVkLIOFS9HaEhIJNkkywezhld8-K2vhAsUQmAHK8Yga8lJP8HyG3yAa-XQ0bCTuFWsI6Er7M6qNRlh5LJIKcJFMnpaU6Erfy8evpm7mHGC04.FkwYMNPBZRSyizC3GcVvHA
+```
+
+=== Whats In There
+```json
+{
+  header:
+   { alg: 'PBES2-HS384+A192KW',
+     enc: 'A192GCM',
+     p2c: 1000,
+     p2s: 'UEJFUzItSFMzODQrQTE5MktXAINdGmkcH7za' },
+  payload:
+   { iss: 'auth.mydomain.com',
+     aud: 'A1B2C3D4E5.com.mydomain.myservice',
+     sub: 'jack.sparrow@example.com',
+     info: 'Hello World!',
+     list: [ 1, 2, 3 ],
+     exp: 1558886943,
+     iat: 1558883343 }
+}
+```
+
+
+== JWT Links
+
+* https://jwt.io#debugger-io[JWT Debugger]
+* https://github.com/hansiemithun/jwe-example[Example Project]

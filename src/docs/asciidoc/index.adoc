@@ -14,8 +14,6 @@ ifndef::sourcedir[:sourcedir: ../java]
 
 = : Application Security Options
 
-
-
 +++<h2>+++
 SmartThings Case Study
 +++</h2>+++
@@ -39,9 +37,6 @@ After we get through a foundation of these security approaches we will work thro
 
 * OAuth Provider
 * OAuth Consumer
-* API Security 
-* Connected Hardware
-* Service to Service Security
 
 By the end I you will have a good understanding of when you could make use of these different security methods.
 --
@@ -70,39 +65,12 @@ include::gr8eu-2019-security/term.adoc[]
 
 include::gr8eu-2019-security/oauth.adoc[]
 
-== JWT Family
+include::gr8eu-2019-security/jwt.adoc[]
 
-* JWS
-* JWT
-* JWE
+include::gr8eu-2019-security/http-sig.adoc[]
 
-== HTTP Signatures
+include::gr8eu-2019-security/st-use.adoc[]
 
-== SmartThings Uses
-
-=== OAuth IN
-
-* API Integrations 
-** Mobile Client
-** SmartApps
-** Automation Integrations
-** Service Providers
-
-=== HTTP Signatures
-
-* Outbound Calls to SmartApps
-* Used to allow 3rd party to very we are who we say
-
-=== OAuth Out
-
-* Integrations with other clouds
-** Voice Agents - Alexa/Google Home
-** Cloud devices - Arlo
-
-=== JWT
-
-* Web Sessions
-* Token Exchange at edges
 
 == Scaling Auth
 
@@ -116,6 +84,11 @@ include::gr8eu-2019-security/oauth.adoc[]
 * Special Case Errors
 * Diligent Error Codes (401/403/5XX)
 
+
+[.notes]
+--
+TODO Still WIP
+--
 
 
 

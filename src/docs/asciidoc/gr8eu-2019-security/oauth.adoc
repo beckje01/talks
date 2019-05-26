@@ -17,7 +17,6 @@ This is where you are defining all the clients that integrate with your system. 
   rectangle resource as "Resource Server"
   rectangle auth as "Authorization server"
 
-
   mobile -right-> auth: Get Token
   mobile -down-> resource: Call API
   resource -> auth: Check Token\n[[https://tools.ietf.org/html/rfc7662 Token Introspection]]
@@ -179,12 +178,12 @@ be done.
 * Access
 * Refresh 
 
-== Access Token​
+=== Access Token​
 * Shorter lived​
 * Used to access the APIs themselves​
 * Sent many times​
 
-== Refresh Token​
+=== Refresh Token​
 * Should be stored securely​
 * Allows getting new access tokens​
 * Sent infrequently​

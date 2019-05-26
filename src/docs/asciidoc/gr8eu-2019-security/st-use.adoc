@@ -1,0 +1,26 @@
+== SmartThings Uses
+
+=== OAuth IN
+
+* API Integrations 
+** Mobile Client
+** SmartApps
+** Automation Integrations
+** Service Providers
+
+=== HTTP Signatures
+
+* Outbound Calls to SmartApps
+* Used to allow 3rd party to very we are who we say
+
+=== OAuth Out
+
+* Integrations with other clouds
+** Voice Agents - Alexa/Google Home
+** Cloud devices - Arlo
+
+=== JWT
+
+* Web Sessions
+* Token Exchange at edges
+

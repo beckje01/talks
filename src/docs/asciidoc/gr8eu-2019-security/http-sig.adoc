@@ -1,0 +1,104 @@
+== HTTP Signatures
+
+A way to sign the content of a request, protects from tampering and replays. Also easy validate without many external calls.
+
+=== Where have I seen that?
+
+* https://github.com/joyent/node-http-signature/blob/master/http_signing.md[Joyent]
+* AWS API -- But not exactly
+* Slack Calls -- But custom
+
+== How Does It Work?
+
+Creates a digest of things like the date and host headers that are signed. The public keys can be provided at a known URL and highly cached.
+
+=== Diagram
+
+[plantuml%interactive, _images/httpsignature, svg,height=300, width=300]
+----
+@startuml
+
+  rectangle external as "External App" 
+  rectangle app as "Notification App" #lightblue
+  rectangle auth as "Auth Server" #lightblue
+
+  app -> external: Signed Request
+  app -> external: Signed Request
+  app -> external: Signed Request
+  external ..> auth: Get Public Keys
+
+@enduml
+----
+
+=== Sequence
+
+[plantuml%interactive, _images/sigsequence, svg]
+----
+@startuml
+
+  participant noti as "Notification Server"
+  participant external as "External App"
+
+  noti -> external: POST 1
+  note left: Signed\nKey: 123
+
+  external -> external: Validate Request
+  activate external #lightblue
+  
+
+
+  external -> auth: Get Keys
+  auth --> external
+  note right: [\n{keyId:123, key:"adafd..."},\n ...\n]
+  deactivate
+
+  external --> noti:200 OK
+  
+
+  noti -> external: POST 2
+  note left: Signed\nKey: 123
+  
+  activate external #lightblue
+  external -> external: Validate Request
+  deactivate
+  
+  external --> noti:200 OK
+
+
+  noti -> external: POST 3
+  note left: Signed\nKey: 123
+  activate external #lightblue
+  external -> external: Validate Request
+  deactivate
+  
+  external --> noti:200 OK  
+
+  noti -> external: POST 4
+  note left: Signed\nKey: 123
+  activate external #lightblue
+  external -> external: Validate Request
+  deactivate
+  
+  external --> noti:200 OK
+  
+
+
+@enduml
+----
+
+
+
+== HTTP Signature Notes
+
+* Only Sign Parts of the request that aren't transformed
+** Exclude rate limit headers, forwarded for etc
+* Expose a SET of Public Keys to allow rolling them
+* Receiver of the call decides to check the signature
+
+== HTTP Signature Links
+
+* https://w3c-dvcg.github.io/http-signatures/[Memo]
+* https://tools.ietf.org/html/draft-cavage-http-signatures[Spec]
+* Libraries
+** JVM https://github.com/tomitribe/http-signatures-java[tomitribe-http-signatures]
+** Node https://github.com/joyent/node-http-signature[http-signature]
