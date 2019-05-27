@@ -450,6 +450,12 @@ section.has-dark-background h3 {
 	line-height: 50px;
 }
 
+.footer i {
+	color: white;
+	vertical-align: middle;
+	line-height: 50px;
+}
+
 #logo {
 	position: absolute;
 	top: 200px;

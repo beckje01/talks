@@ -145,11 +145,11 @@ If you are cascading calls make sure to agree on what an auth failure means. Ins
 
 === Error Story
 
-1. A datastore failed so we started returning a 500 from the auth server. 
-1. App Servers treated an auth 500 as a 401
-1. Mobile clients got 401s and triggered refreshing tokens
-1. Mobile clients put more pressure on the already failing datastore
-1. Go back to 1
+. A datastore failed so we started returning a 500 from the auth server. 
+. App Servers treated an auth 500 as a 401
+. Mobile clients got 401s and triggered refreshing tokens
+. Mobile clients put more pressure on the already failing datastore
+. Go back to 1
 
 
 

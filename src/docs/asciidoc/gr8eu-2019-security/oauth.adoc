@@ -2,8 +2,8 @@
 
 Two major uses:
 
-1. Your application has it's own Authorization Server 
-1. Your Application is integrating with a 3rd party
+. Your application has it's own Authorization Server 
+. Your Application is integrating with a 3rd party
 
 === With Authorization Server
 
