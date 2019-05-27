@@ -1,36 +1,17 @@
 == What is SmartThings?
 
-=== SmartThings Purpose
+A platform for IoT, connect and automate all your devices.
 
-stuff about st
+=== The Platform
+
+* Multiple Mobile Clients
+* Many Connected Devices
+* Open API 
+
+=== The Platform
+
+* >150 μ-services
+* Java, Groovy, Kotlin, Scala, Rust, JavaScript, Swift
+* Grails, Ratpack, SpringBoot, Micronaut, Dropwizard, ...
 
 
-=== Connect All Your Devices
-
-* Hub Connected
-* Cloud to Cloud 
-* Device to Cloud 
-
-
-=== System Overview
-
-[plantuml%interactive, _images/diagramoverdev, svg, height=350, width=400]
-----
-@startuml
-  rectangle edge as "Edge"
-  rectangle hub as "Hub"
-	rectangle user as "User"
-	rectangle report as "Report"
-	database hubdb as "Hub\nDatabase"
-	database userdb as "User\nDatabase"
-
-  user -down-> userdb
-  hub -down-> hubdb
-
-  edge -down-> report
-  edge -down-> hub
-	edge -down-> user
-
-	report -> hub
-@enduml
-----

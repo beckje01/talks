@@ -74,23 +74,162 @@ include::gr8eu-2019-security/st-use.adoc[]
 
 == Scaling Auth
 
-* Token Type Detection
-* Prefixing Tokens 
-* Token Exchange
-* Allow/Deny Lists
+What makes auth at scale hard?
+
+* Centralized by Default
+* High Cardinality for Everything
+* Can't break legacy
+
+== Tokens 
+
+Overtime you may have multiple auth systems, different backends.
+
+=== Token Type Detection
+
+If you are supporting multiple token types such as JWT and opaque. You will want to handle them differently. 
+
+* `1323.443.23` -- Looks like JWT because of the `.`
+* `234-23-22` -- Looks like an opaque token with `-`
+
+=== Prefixing Tokens 
+
+We can support many data stores with prefixes allowing quick routing.
+
+[plantuml%interactive, _images/prefix, svg, height=300, width=300]
+----
+@startuml
+  rectangle resource as "Resource Server"
+  rectangle authEdge as "Auth Server"
+  rectangle legacy as "Legacy Token Service"
+  rectangle fresh as "Fresh Token Service"
+
+  resource -[#blue,bold]-> authEdge: Check Token\n<b>leg:3234-234-2</b>
+  authEdge -[#blue,bold]-> legacy: Check Token
+
+  resource -[#green,bold]-> authEdge: Check Token\n<b>fresh:3234-234-2</b>
+  authEdge -[#green,bold]-> fresh
+
+
+@enduml
+----
+
+=== Prefixing Tokens
+
+We can extend to allow client side routing
+
+[plantuml%interactive, _images/prefixclientRouting, svg, height=300, width=300]
+----
+@startuml
+  rectangle resource as "Resource Server"
+  rectangle authEdge as "Auth Server"
+  rectangle legacy as "Legacy Token Service"
+  rectangle fresh as "Fresh Token Service"
+
+  resource -[#blue,bold]-> legacy: Check Token\n<b>leg:3234-234-2</b>
+
+  resource -[#green,bold]-> fresh: Check Token\n<b>fresh:3234-234-2</b>
+
+  authEdge -> fresh
+  authEdge -up-> legacy
+
+@enduml
+----
+
+
+=== Token Exchange
+
+If you expect all μ-services to check a forwarded token you pay the token check time every hop.
+
+[plantuml%interactive, _images/lotsofchecks, svg, height=400, width=400]
+----
+@startuml
+  rectangle client as "Client"
+  rectangle edge as "API Edge"
+  rectangle internal as "Location Service"
+  rectangle internal2 as "Device Service"
+  rectangle internal3 as "State System"
+  rectangle auth as "Auth Server"
+
+  client -[#blue,bold]down-> edge: Opaque\nToken
+  edge -[#blue,bold]> internal
+  internal -[#blue,bold]> internal2
+  edge -[#blue,bold]-> internal3
+
+  edge -up-> auth: Check
+  internal -up-> auth: Check
+  internal2 -up-> auth: Check
+  internal3 -> auth: Check
+
+
+@enduml
+----
+
+=== Exchange for JWT
+
+[plantuml%interactive, _images/jwtchecks, svg,height=300, width=300]
+----
+@startuml
+  rectangle client as "Client"
+  rectangle edge as "API Edge" #lightblue
+  rectangle internal as "Location Service"
+  rectangle internal2 as "Device Service"
+  rectangle internal3 as "State System"
+  rectangle auth as "Auth Server"
+
+  client -[#blue,bold]> edge: Opaque\nToken
+  edge -[#green,bold]down-> internal
+  internal -[#green,bold]-> internal2
+  edge -[#green,bold]right-> internal3
+
+  edge -up-> auth: Check
+  
+
+
+@enduml
+----
+
+== Operations 
+
+The high cardinality of auth systems tend to make operating them very challenging at scale.
+
+=== Allow/Deny Lists
+
+* Ability to very early on in process to block bad actors
+* Can load lists in bloom filters
+
+=== Human Readable
+
+* Add names to clients
+* Quick Methods to Allow/Deny access based on easy identifiers
+
+=== Other Tips
+
 * Scope Aliasing 
-* Human Readable
-* Logging Prefixes 
-* Special Case Errors
-* Diligent Error Codes (401/403/5XX)
+* Logging Prefixes of Tokens
 
 
-[.notes]
---
-TODO Still WIP
---
+== Errors At Scale
+
+Small blips can easily cause big issues.
+
+=== Special Case Errors
+
+If you are cascading calls make sure to agree on what an auth failure means. Instead of auth failure resulting in a 4XX default to a known 5XX.
+
+=== Error Story
+
+1. A datastore failed so we started returning a 500 from the auth server. 
+1. App Servers treated an auth 500 as a 401
+1. Mobile clients got 401s and triggered refreshing tokens
+1. Mobile clients put more pressure on the already failing datastore
+1. Go back to 1
 
 
 
+=== Diligent Error Codes (401/403/5XX)
+
+* *401* -- Means get a new token
+* *403* -- Means don't do that again
+* *5XX* -- Try again but coordinate jitter and back off
 
 include::shared/end.adoc[]
