@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="189px" preserveAspectRatio="none" style="width:471px;height:189px;" version="1.1" viewBox="0 0 471 189" width="471px" zoomAndPan="magnify"><defs><filter height="300%" id="fwrx181lyek8e" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="94" x="192.5" y="16.708">OAuth "In"</text><!--entity mobile--><rect fill="#FEFECE" filter="url(#fwrx181lyek8e)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="96" x="178.5" y="28.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="76" x="188.5" y="51.9482">Mobile App</text><!--entity resource--><rect fill="#FEFECE" filter="url(#fwrx181lyek8e)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="135" x="6" y="141.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="115" x="16" y="164.9482">Resource Server</text><!--entity auth--><rect fill="#FEFECE" filter="url(#fwrx181lyek8e)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="158" x="302.5" y="141.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="138" x="312.5" y="164.9482">Authorization server</text><!--link mobile to auth--><path d="M251.4034,65.1085 C278.9723,85.2071 323.354,117.5628 352.4762,138.7938 " fill="none" id="mobile-auth" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="356.6584,141.8428,351.7424,133.3086,352.6181,138.8973,347.0295,139.773,356.6584,141.8428" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="65" x="313.5" y="108.02">Get Token</text><!--link mobile to resource--><path d="M201.9179,65.1085 C174.7048,85.2071 130.8957,117.5628 102.1493,138.7938 " fill="none" id="mobile-resource" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="98.0211,141.8428,107.637,139.7134,102.043,138.8723,102.8842,133.2783,98.0211,141.8428" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="47" x="160.5" y="108.02">Call API</text><!--link resource to auth--><path d="M141.0919,159.9531 C187.0592,159.9531 248.2126,159.9531 297.3374,159.9531 " fill="none" id="resource-auth" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="302.3551,159.9531,293.3551,155.9531,297.3551,159.9531,293.3551,163.9531,302.3551,159.9531" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="81" x="181.25" y="138.02">Check Token</text><a target="_top" xlink:actuate="onRequest" xlink:href="https://tools.ietf.org/html/rfc7662" xlink:show="new" xlink:title="https://tools.ietf.org/html/rfc7662" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="125" x="159.25" y="153.1528">Token Introspection</text><line style="stroke: #0000FF; stroke-width: 1.0;" x1="159.25" x2="284.25" y1="155.1528" y2="155.1528"/></a><!--
+@startuml
+  title OAuth "In"
+  rectangle mobile as "Mobile App"
+  rectangle resource as "Resource Server"
+  rectangle auth as "Authorization server"
+
+  mobile -right-> auth: Get Token
+  mobile -down-> resource: Call API
+  resource -> auth: Check Token\n[[https://tools.ietf.org/html/rfc7662 Token Introspection]]
+
+@enduml
+
+PlantUML version 1.2018.13(Mon Nov 26 11:11:51 CST 2018)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_202-b05
+Operating System: Linux
+OS Version: 5.1.1-2-MANJARO
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

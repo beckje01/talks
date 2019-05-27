@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="185px" preserveAspectRatio="none" style="width:433px;height:185px;" version="1.1" viewBox="0 0 433 185" width="433px" zoomAndPan="magnify"><defs><filter height="300%" id="f1q45jq05x4e9i" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--entity external--><rect fill="#FEFECE" filter="url(#f1q45jq05x4e9i)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="106" x="269.5" y="25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="86" x="279.5" y="47.9951">External App</text><!--entity app--><rect fill="#ADD8E6" filter="url(#f1q45jq05x4e9i)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="127" x="6" y="25"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="107" x="16" y="47.9951">Notification App</text><!--entity auth--><rect fill="#ADD8E6" filter="url(#f1q45jq05x4e9i)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="100" x="272.5" y="138"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="80" x="282.5" y="160.9951">Auth Server</text><!--link app to external--><path d="M133.016,43 C173.2203,43 224.8201,43 264.0187,43 " fill="none" id="app-external" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="269.2213,43,260.2213,39,264.2213,43,260.2213,47,269.2213,43" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="100" x="151.25" y="36.0669">Signed Request</text><!--link app to external--><path d="M133.1465,60.2786 C138.8971,61.3794 144.6588,62.3179 150.25,63 C195.2497,68.4898 207.3519,69.2667 252.25,63 C256.1355,62.4577 260.1078,61.7544 264.0892,60.9368 " fill="none" id="app-external" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="269.1314,59.8438,259.4882,57.8416,264.2449,60.9032,261.1833,65.66,269.1314,59.8438" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="100" x="151.25" y="59.0669">Signed Request</text><!--link app to external--><path d="M133.1465,25.7214 C138.8971,24.6206 144.6588,23.6821 150.25,23 C195.2497,17.5102 207.3519,16.7333 252.25,23 C256.1355,23.5423 260.1078,24.2456 264.0892,25.0632 " fill="none" id="app-external" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="269.1314,26.1562,261.1833,20.34,264.2449,25.0968,259.4882,28.1584,269.1314,26.1562" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="100" x="151.25" y="13.0669">Signed Request</text><!--link external to auth--><path d="M322.5,61.1554 C322.5,80.595 322.5,111.5012 322.5,132.7174 " fill="none" id="external-auth" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="322.5,137.8897,326.5,128.8897,322.5,132.8897,318.5,128.8897,322.5,137.8897" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="98" x="323.5" y="104.0669">Get Public Keys</text><!--
+@startuml
+
+  rectangle external as "External App"
+  rectangle app as "Notification App" #lightblue
+  rectangle auth as "Auth Server" #lightblue
+
+  app -> external: Signed Request
+  app -> external: Signed Request
+  app -> external: Signed Request
+  external ..> auth: Get Public Keys
+
+@enduml
+
+PlantUML version 1.2018.13(Mon Nov 26 11:11:51 CST 2018)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_202-b05
+Operating System: Linux
+OS Version: 5.1.1-2-MANJARO
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

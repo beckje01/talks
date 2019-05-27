@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="273px" preserveAspectRatio="none" style="width:299px;height:273px;" version="1.1" viewBox="0 0 299 273" width="299px" zoomAndPan="magnify"><defs><filter height="300%" id="f18mfk8k42at0k" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--entity edge--><rect fill="#FEFECE" filter="url(#f18mfk8k42at0k)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="56" x="104.5" y="8"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="36" x="114.5" y="30.9951">Edge</text><!--entity hub--><rect fill="#FEFECE" filter="url(#f18mfk8k42at0k)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="48" x="108.5" y="104"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="118.5" y="126.9951">Hub</text><!--entity user--><rect fill="#FEFECE" filter="url(#f18mfk8k42at0k)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="52" x="209.5" y="104"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="32" x="219.5" y="126.9951">User</text><!--entity report--><rect fill="#FEFECE" filter="url(#f18mfk8k42at0k)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="67" x="6" y="104"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="47" x="16" y="126.9951">Report</text><!--entity hubdb--><path d="M80.5,210 C80.5,200 123.5,200 123.5,200 C123.5,200 166.5,200 166.5,210 L166.5,251.5938 C166.5,261.5938 123.5,261.5938 123.5,261.5938 C123.5,261.5938 80.5,261.5938 80.5,251.5938 L80.5,210 " fill="#FEFECE" filter="url(#f18mfk8k42at0k)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M80.5,210 C80.5,220 123.5,220 123.5,220 C123.5,220 166.5,220 166.5,210 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="90.5" y="236.9951">Hub</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="66" x="90.5" y="253.292">Database</text><!--entity userdb--><path d="M201.5,210 C201.5,200 244.5,200 244.5,200 C244.5,200 287.5,200 287.5,210 L287.5,251.5938 C287.5,261.5938 244.5,261.5938 244.5,261.5938 C244.5,261.5938 201.5,261.5938 201.5,251.5938 L201.5,210 " fill="#FEFECE" filter="url(#f18mfk8k42at0k)" style="stroke: #000000; stroke-width: 1.5;"/><path d="M201.5,210 C201.5,220 244.5,220 244.5,220 C244.5,220 287.5,220 287.5,210 " fill="none" style="stroke: #000000; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="32" x="211.5" y="236.9951">User</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="66" x="211.5" y="253.292">Database</text><!--link user to userdb--><path d="M237.0267,140.4904 C238.2461,155.2584 239.9927,176.4115 241.4908,194.5549 " fill="none" id="user-userdb" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="241.9061,199.5847,245.1517,190.286,241.4945,194.6017,237.1788,190.9445,241.9061,199.5847" style="stroke: #A80036; stroke-width: 1.0;"/><!--link hub to hubdb--><path d="M130.9733,140.4904 C129.7539,155.2584 128.0073,176.4115 126.5092,194.5549 " fill="none" id="hub-hubdb" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="126.0939,199.5847,130.8212,190.9445,126.5055,194.6017,122.8483,190.286,126.0939,199.5847" style="stroke: #A80036; stroke-width: 1.0;"/><!--link edge to report--><path d="M115.0074,44.0569 C99.6474,59.9124 77.2566,83.0255 60.8456,99.9658 " fill="none" id="edge-report" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="57.2303,103.6977,66.3654,100.0166,60.7092,100.1065,60.6194,94.4503,57.2303,103.6977" style="stroke: #A80036; stroke-width: 1.0;"/><!--link edge to hub--><path d="M132.5,44.0569 C132.5,59.5126 132.5,81.8647 132.5,98.6731 " fill="none" id="edge-hub" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="132.5,103.6977,136.5,94.6977,132.5,98.6977,128.5,94.6977,132.5,103.6977" style="stroke: #A80036; stroke-width: 1.0;"/><!--link edge to user--><path d="M151.8735,44.0569 C168.8851,59.9124 193.6836,83.0255 211.8592,99.9658 " fill="none" id="edge-user" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="215.8632,103.6977,212.0067,94.6353,212.2056,100.2886,206.5522,100.4875,215.8632,103.6977" style="stroke: #A80036; stroke-width: 1.0;"/><!--link report to hub--><path d="M73.2852,122 C83.2651,122 93.2451,122 103.2251,122 " fill="none" id="report-hub" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="108.444,122,99.444,118,103.444,122,99.444,126,108.444,122" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml
+  rectangle edge as "Edge"
+  rectangle hub as "Hub"
+	rectangle user as "User"
+	rectangle report as "Report"
+	database hubdb as "Hub\nDatabase"
+	database userdb as "User\nDatabase"
+
+  user -down-> userdb
+  hub -down-> hubdb
+
+  edge -down-> report
+  edge -down-> hub
+	edge -down-> user
+
+	report -> hub
+@enduml
+
+PlantUML version 1.2018.13(Mon Nov 26 11:11:51 CST 2018)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_202-b05
+Operating System: Linux
+OS Version: 5.1.1-2-MANJARO
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

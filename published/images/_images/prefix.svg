@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="296px" preserveAspectRatio="none" style="width:383px;height:296px;" version="1.1" viewBox="0 0 383 296" width="383px" zoomAndPan="magnify"><defs><filter height="300%" id="f1ejx5tlrdfd51" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--entity resource--><rect fill="#FEFECE" filter="url(#f1ejx5tlrdfd51)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="135" x="123.5" y="8"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="115" x="133.5" y="30.9951">Resource Server</text><!--entity authEdge--><rect fill="#FEFECE" filter="url(#f1ejx5tlrdfd51)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="100" x="141" y="136"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="80" x="151" y="158.9951">Auth Server</text><!--entity legacy--><rect fill="#FEFECE" filter="url(#f1ejx5tlrdfd51)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="170" x="6" y="249"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="150" x="16" y="271.9951">Legacy Token Service</text><!--entity fresh--><rect fill="#FEFECE" filter="url(#f1ejx5tlrdfd51)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="161" x="211.5" y="249"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="141" x="221.5" y="271.9951">Fresh Token Service</text><!--link resource to authEdge--><path d="M144.1876,44.0145 C131.4775,51.3132 119.2387,61.1317 112,74 C105.0272,86.3956 105.0272,93.6044 112,106 C118.3904,117.3603 128.6777,126.3437 139.7459,133.3149 " fill="none" id="resource-authEdge" style="stroke: #0000FF; stroke-width: 2.0;"/><polygon fill="#0000FF" points="144.1876,135.9855,138.5355,127.9199,139.9025,133.4091,134.4133,134.7761,144.1876,135.9855" style="stroke: #0000FF; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="81" x="127.5" y="87.0669">Check Token</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="110" x="113" y="102.1997">leg:3234-234-2</text><!--link resource to authEdge--><path d="M209.7347,44.339 C216.9114,52.6415 224.2676,63.0444 228,74 C232.5864,87.4624 232.5864,92.5376 228,106 C224.8508,115.2438 219.1217,124.0941 213.0974,131.6213 " fill="none" id="resource-authEdge" style="stroke: #008000; stroke-width: 2.0;"/><polygon fill="#008000" points="209.7347,135.661,218.5669,131.303,212.9335,131.8182,212.4183,126.1848,209.7347,135.661" style="stroke: #008000; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="81" x="255" y="87.0669">Check Token</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="125" x="233" y="102.1997">fresh:3234-234-2</text><!--link authEdge to legacy--><path d="M174.9333,172.1554 C157.3656,192.0069 129.216,223.8159 110.4225,245.0526 " fill="none" id="authEdge-legacy" style="stroke: #0000FF; stroke-width: 2.0;"/><polygon fill="#0000FF" points="107.0269,248.8897,115.9868,244.8006,110.3404,245.1453,109.9958,239.499,107.0269,248.8897" style="stroke: #0000FF; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="81" x="148" y="215.0669">Check Token</text><!--link authEdge to fresh--><path d="M209.6637,172.3526 C218.4373,181.1579 228.9371,191.9551 238,202 C250.4498,215.7988 263.8011,231.8577 274.1132,244.5609 " fill="none" id="authEdge-fresh" style="stroke: #008000; stroke-width: 2.0;"/><polygon fill="#008000" points="277.4881,248.7322,274.9367,239.2196,274.3431,244.8452,268.7175,244.2516,277.4881,248.7322" style="stroke: #008000; stroke-width: 1.0;"/><!--
+@startuml
+  rectangle resource as "Resource Server"
+  rectangle authEdge as "Auth Server"
+  rectangle legacy as "Legacy Token Service"
+  rectangle fresh as "Fresh Token Service"
+
+  resource -[#blue,bold]-> authEdge: Check Token\n<b>leg:3234-234-2</b>
+  authEdge -[#blue,bold]-> legacy: Check Token
+
+  resource -[#green,bold]-> authEdge: Check Token\n<b>fresh:3234-234-2</b>
+  authEdge -[#green,bold]-> fresh
+
+
+@enduml
+
+PlantUML version 1.2018.13(Mon Nov 26 11:11:51 CST 2018)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_202-b05
+Operating System: Linux
+OS Version: 5.1.1-2-MANJARO
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

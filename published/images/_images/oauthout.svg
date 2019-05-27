@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="189px" preserveAspectRatio="none" style="width:305px;height:189px;" version="1.1" viewBox="0 0 305 189" width="305px" zoomAndPan="magnify"><defs><filter height="300%" id="ffa0rw2hqcv02" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="109" x="101.5" y="16.708">OAuth "Out"</text><!--entity mobile--><rect fill="#FEFECE" filter="url(#ffa0rw2hqcv02)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="96" x="6" y="28.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="76" x="16" y="51.9482">Mobile App</text><!--entity resource--><rect fill="#FEFECE" filter="url(#ffa0rw2hqcv02)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="95" x="188.5" y="28.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="75" x="198.5" y="51.9482">App Server</text><!--entity auth--><rect fill="#FEFECE" filter="url(#ffa0rw2hqcv02)" height="36.2969" style="stroke: #000000; stroke-width: 1.5;" width="67" x="172.5" y="141.9531"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="47" x="182.5" y="164.9482">GitHub</text><!--link mobile to resource--><path d="M102.2948,46.9531 C127.2729,46.9531 157.8025,46.9531 183.3796,46.9531 " fill="none" id="mobile-resource" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="188.4259,46.9531,179.4259,42.9531,183.4259,46.9531,179.4259,50.9531,188.4259,46.9531" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="50" x="120.25" y="40.02">Get Info</text><!--link resource to auth--><path d="M219.6113,65.1624 C213.0959,73.5969 206.3595,84.1365 203,94.9531 C198.8367,108.3576 199.4214,124.0621 201.126,136.6764 " fill="none" id="resource-auth" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="201.9145,141.8776,204.5201,132.3797,201.1649,136.9341,196.6105,133.579,201.9145,141.8776" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="42" x="204" y="108.02">List PR</text><!--link resource to auth--><path d="M247.9032,69.9109 C252.8522,82.5872 256.3389,98.4522 251,111.9531 C246.4634,123.4253 237.7455,133.7607 229.1817,141.8768 " fill="none" id="resource-auth" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="245.8722,65.0443,245.6469,74.8906,247.7979,69.6586,253.0298,71.8095,245.8722,65.0443" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="38" x="255" y="108.02">Token</text><!--link mobile to auth--><path d="M57.442,65.1629 C61.041,79.5854 68.0402,99.3393 81,111.9531 C104.5237,134.8487 140.1294,147.0905 167.3305,153.4655 " fill="none" id="mobile-auth" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="172.307,154.5888,164.4087,148.7052,167.4297,153.4878,162.6471,156.5088,172.307,154.5888" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="110" x="82" y="108.02">Authorize Access</text><!--
+@startuml
+  title OAuth "Out"
+
+  rectangle mobile as "Mobile App"
+  rectangle resource as "App Server"
+
+  rectangle auth as "GitHub"
+
+  mobile -> resource: Get Info
+  resource -> auth: List PR
+
+  resource <.. auth: Token
+  mobile ..> auth: Authorize Access
+
+
+@enduml
+
+PlantUML version 1.2018.13(Mon Nov 26 11:11:51 CST 2018)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_202-b05
+Operating System: Linux
+OS Version: 5.1.1-2-MANJARO
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
