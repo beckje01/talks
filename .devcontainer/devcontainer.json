@@ -3,7 +3,10 @@
 {
 	"name": "Java",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+	// "image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devenv",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
@@ -16,7 +19,7 @@
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [80],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version",
