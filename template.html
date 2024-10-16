@@ -6,7 +6,7 @@
 
 		<title>TODO</title>
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -34,28 +34,30 @@
 	</head>
 
 	<body>
-<div class="reveal">
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="info-slide">
+					<h2>TODO</h2>
+					
+					<!-- <p>
+						<a href="https://twitter.com/beckje01">@beckje01</a>
+					</p> -->
+					<p>
+						<a href="https://jeffbeck.io">jeffbeck.io</a>
+					</p>
+					<p>
+						http://bit.ly/TODO
+					</p>
+				</section>
 
-	<!-- Any section element inside of this container is displayed as a slide -->
-<div class="slides">
-<section class="info-slide">
-		<h2>Template Presentation</h2>
-<p>
-<a href="https://twitter.com/beckje01">@beckje01</a>
-</p>
-<p>
-http://bit.ly/TODO
-</p>
+				<section data-markdown="example.md" data-separator="----" data-vertical="--" data-notes="-note"></section>
 
-</section>
-<section data-markdown="example.md" data-separator="----" data-vertical="--" data-notes="-note"></section>
-<section>
-	<h1>Thank You</h1>
-</section>
-</div>
-
-
-</div>
+				<section>
+					<h1>Thank You</h1>
+				</section>
+			</div>
+		</div>
 
 		<script src="revealjs/lib/js/head.min.js"></script>
 		<script src="revealjs/js/reveal.min.js"></script>
@@ -69,7 +71,7 @@ http://bit.ly/TODO
 				progress: true,
 				history: true,
 				center: true,
-
+				zoomKey: 'shift',
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
@@ -89,47 +91,47 @@ http://bit.ly/TODO
 			});
 
 		</script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-MP9L3J79YC"></script>
 		<script>
-		if(document.location.hostname!="localhost"){
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
-			ga('create', 'UA-41150211-5', 'auto');
-			ga('require', 'linkid', 'linkid.js');
+			gtag('config', 'G-MP9L3J79YC');
+		</script>
 
-		}
+		<script>
+			Reveal.addEventListener( 'ready', function( event ) {
+					event.currentSlide, event.indexh, event.indexv
+					if(event.indexh === 0 && event.indexv === 0){
+						console.log("First Slide Sending page view");
 
-		Reveal.addEventListener( 'ready', function( event ) {
-				// event.currentSlide, event.indexh, event.indexv
-				if(event.indexh === 0 && event.indexv === 0){
-					// console.log("First Slide Sending page view");
-
-					if(document.location.hostname!="localhost"){
-						ga('send', 'pageview');
+						if(document.location.hostname!="localhost"){
+							gtag('send', 'page_view');
+						}
 					}
+			} );
+
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				var pagePath = window.location.pathname+"#/"+event.indexh;
+
+				if(event.indexv!==0){
+					pagePath += "/"+event.indexv
 				}
-		} );
 
-		Reveal.addEventListener( 'slidechanged', function( event ) {
-			// event.previousSlide, event.currentSlide, event.indexh, event.indexv
-			var pagePath = window.location.pathname+"#/"+event.indexh;
+				// console.log("Sending PageView of: "+pagePath)
+				if(document.location.hostname!="localhost"){
+					gtag('event', 'page_view', {
+						'page_location': pagePath
+						});
+				}
+			} );
+		</script>
 
-			if(event.indexv!==0){
-				pagePath += "/"+event.indexv
-			}
-
-			// console.log("Sending PageView of: "+pagePath)
-			if(document.location.hostname!="localhost"){
-				ga('set', 'page', pagePath);
-				ga('send', 'pageview');
-			}
-		} );
-	</script>
-
-		<!-- SmartThings Branding -->
-		<a href="template-light.html"><img style="position: absolute; bottom: 0; left: 0; border: 0; height:7em;z-index:10;" class="logo" src="images/st-logo.png" /></a>
-
+		<!-- JAB Branding -->
+		<a href="template-light.html"><img style="position: absolute; bottom: 0; left: 0; border: 0; height:7em;z-index:10;" class="logo" src="images/logo_jab_grey.webp" /></a>
 	</body>
 </html>

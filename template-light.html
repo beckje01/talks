@@ -34,35 +34,34 @@
 	</head>
 
 	<body>
-<div class="reveal">
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="info-slide">
+					<h2>TODO</h2>
+					
+					<!-- <p>
+						<a href="https://twitter.com/beckje01">@beckje01</a>
+					</p> -->
+					<p>
+						<a href="https://jeffbeck.io">jeffbeck.io</a>
+					</p>
+					<p>
+						http://bit.ly/TODO
+					</p>
+				</section>
 
-	<!-- Any section element inside of this container is displayed as a slide -->
-<div class="slides">
-<section class="info-slide">
-		<h2>TODO</h2>
-<p>
-<a href="https://twitter.com/beckje01">@beckje01</a>
-</p>
-<p>
-	http://bit.ly/TODO
-</p>
+				<section data-markdown="example.md" data-separator="----" data-vertical="--" data-notes="-note"></section>
 
-
-</section>
-<section data-markdown="example.md" data-separator="----" data-vertical="---" data-notes="-note"></section>
-<section>
-	<h1>Thank You</h1>
-</section>
-</div>
-
-
-</div>
+				<section>
+					<h1>Thank You</h1>
+				</section>
+			</div>
+		</div>
 
 		<script src="revealjs/lib/js/head.min.js"></script>
 		<script src="revealjs/js/reveal.min.js"></script>
-
 		<script>
-
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
@@ -88,7 +87,6 @@
 					{ src: 'revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
-
 		</script>
 
 		<!-- Google tag (gtag.js) -->
@@ -102,7 +100,6 @@
 		</script>
 
 		<script>
-
 			Reveal.addEventListener( 'ready', function( event ) {
 					event.currentSlide, event.indexh, event.indexv
 					if(event.indexh === 0 && event.indexv === 0){
@@ -132,8 +129,7 @@
 		</script>
 
 		<!-- JAB Branding -->
-		<a href="template.html"><img style="position: absolute; bottom: 0; left: 0; border: 0; height:7em;z-index:10;" class="logo" src="images/st-logo.png" /></a>
-
+		<a href="template.html"><img style="position: absolute; bottom: 0; left: 0; border: 0; height:7em;z-index:10;" class="logo" src="images/logo_jab_grey.webp" /></a>
 	</body>
 </html>
 
