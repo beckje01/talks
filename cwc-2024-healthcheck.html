@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Health Checks Deep Dive</title>
+
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="revealjs/css/reveal.min.css">
+		<link rel="stylesheet" href="revealjs/css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="revealjs/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="info-slide">
+					<h2>Health Check Deep Dive</h2>
+					
+					<!-- <p>
+						<a href="https://twitter.com/beckje01">@beckje01</a>
+					</p> -->
+					<p>
+						<a href="https://jeffbeck.io">jeffbeck.io</a>
+					</p>
+					<p>
+						http://bit.ly/TODO
+					</p>
+				</section>
+
+				<section data-markdown="cwc-2024-healthcheck.md" data-separator="----" data-vertical="--" data-notes="-note"></section>
+
+				<section>
+					<h1>Thank You</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="revealjs/lib/js/head.min.js"></script>
+		<script src="revealjs/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				zoomKey: 'shift',
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-MP9L3J79YC"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-MP9L3J79YC');
+		</script>
+
+		<script>
+			Reveal.addEventListener( 'ready', function( event ) {
+					event.currentSlide, event.indexh, event.indexv
+					if(event.indexh === 0 && event.indexv === 0){
+						console.log("First Slide Sending page view");
+
+						if(document.location.hostname!="localhost"){
+							gtag('send', 'page_view');
+						}
+					}
+			} );
+
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				var pagePath = window.location.pathname+"#/"+event.indexh;
+
+				if(event.indexv!==0){
+					pagePath += "/"+event.indexv
+				}
+
+				// console.log("Sending PageView of: "+pagePath)
+				if(document.location.hostname!="localhost"){
+					gtag('event', 'page_view', {
+						'page_location': pagePath
+						});
+				}
+			} );
+		</script>
+
+		<!-- JAB Branding -->
+		<a href="cwc-2024-healthcheck-light.html"><img style="position: absolute; bottom: 0; left: 0; border: 0; height:7em;z-index:10;" class="logo" src="images/logo_jab_grey.webp" /></a>
+	</body>
+</html>
